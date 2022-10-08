@@ -14,8 +14,8 @@ Repositorio de la primera práctica de la asignatura de administración y gesti�
 - [X] Crear los espacios físicos (datafiles) y lógicos (tablespaces) de la BD
 - [X] Eliminar los espacios físicos (datafiles) y lógicos (tablespaces) de la BD
 
-- [ ] Crear las tablas de la BD en los espacios lógicos definidos anteriormente
-- [ ] Eliminar las tablas de la BD
+- [X] Crear las tablas de la BD en los espacios lógicos definidos anteriormente
+- [X] Eliminar las tablas de la BD
 
 - [ ] Inserción de los datos del juego de datos
 
