@@ -35,4 +35,4 @@ CREATE TABLE clientes_juegos (
     PRIMARY KEY (ClienteID, JuegoID, FechaAlquiler),
     FOREIGN KEY (ClienteID) REFERENCES clientes(ClienteID),
     FOREIGN KEY (JuegoID) REFERENCES juegos(JuegoID)
-) TABLESPACE TBLS_clientes_juegos 
+) TABLESPACE TBLS_clientes_juegos;
