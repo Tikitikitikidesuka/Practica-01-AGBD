@@ -1,4 +1,4 @@
-USE PracADB1;
+USE PracABD1;
 
 DROP TABLESPACE `TBLS_clientes`;
 
