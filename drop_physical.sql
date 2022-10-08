@@ -1,7 +1,7 @@
 USE PracABD1;
 
-DROP TABLESPACE `TBLS_clientes`;
+DROP TABLESPACE TBLS_clientes;
 
-DROP TABLESPACE `TBLS_juegos`;
+DROP TABLESPACE TBLS_juegos;
 
-DROP TABLESPACE `TBLS_clientes_juegos`;
+DROP TABLESPACE TBLS_clientes_juegos;
