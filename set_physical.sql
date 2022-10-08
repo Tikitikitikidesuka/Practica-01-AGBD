@@ -1,0 +1,7 @@
+USE PracABD1;
+
+CREATE TABLESPACE `clientes` ADD DATAFILE 'clientes.idb' ENGINE=INNODB;
+
+CREATE TABLESPACE `juegos` ADD DATAFILE 'juegos.idb' ENGINE=INNODB;
+
+CREATE TABLESPACE `clientes_juegos` ADD DATAFILE 'clientes_juegos.idb' ENGINE=INNODB;
