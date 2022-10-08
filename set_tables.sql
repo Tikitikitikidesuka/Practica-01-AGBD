@@ -1,6 +1,6 @@
 USE PracABD1;
 
-CREATE TABLE `clientes` (
+CREATE TABLE clientes (
 	ClienteID INT UNIQUE NOT NULL,
     DNI VARCHAR(9) UNIQUE NOT NULL,
     Nombre VARCHAR(20) NOT NULL,
@@ -16,18 +16,18 @@ CREATE TABLE `clientes` (
     FechaContacto DATE,
     Email VARCHAR(60),
     PRIMARY KEY (ClienteID)
-) TABLESPACE `TBLS_clientes`;
+) TABLESPACE TBLS_clientes;
 
-CREATE TABLE `juegos` (
+CREATE TABLE juegos (
 	JuegoID INT UNIQUE NOT NULL,
 	Titulo VARCHAR(32) UNIQUE NOT NULL,
 	Consola VARCHAR(12) NOT NULL,
 	Tamanio INT,
 	Editor VARCHAR(32),
 	PRIMARY KEY (JuegoID)
-) TABLESPACE `TBLS_juegos`;
+) TABLESPACE TBLS_juegos;
 
-CREATE TABLE `clientes_juegos` (
+CREATE TABLE clientes_juegos (
 	ClienteID INT NOT NULL,
     JuegoID INT NOT NULL,
     FechaAlquiler DATE NOT NULL,
@@ -35,4 +35,4 @@ CREATE TABLE `clientes_juegos` (
     PRIMARY KEY (ClienteID, JuegoID, FechaAlquiler),
     FOREIGN KEY (ClienteID) REFERENCES clientes(ClienteID),
     FOREIGN KEY (JuegoID) REFERENCES juegos(JuegoID)
-) TABLESPACE `TBLS_clientes_juegos` 
+) TABLESPACE TBLS_clientes_juegos 
