@@ -1,0 +1,12 @@
+USE PracADB1;
+
+CREATE TABLE `juegos` (
+	JuegoID INT UNIQUE NOT NULL,
+	Titulo VARCHAR(32) UNIQUE NOT NULL,
+	Consola VARCHAR(12) NOT NULL,
+	Tamanio INT,
+	Editor VARCHAR(32),
+	PRIMARY KEY (JuegoID)
+	);
+
+	TABLESPACE TBLS_juegos;
