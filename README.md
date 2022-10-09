@@ -109,3 +109,10 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
     4. Inserción de los datos del juego de datos      (inserción)
     5. Creación de las claves primarias               (creación de índices)
     6. Creación de las claves foráneas                (creación de índices)
+
+--- 
+
+## Comentarle a Dani
+
+1. Longitud de los títulos de los juegos no caben en 32 carácteres. Ejemplo: "Wagamama Fairy Mirumo de Pon! - Ougon Maracas no Densetsu"
+2. Colisiones por títulos repetidos de juegos, a pesar de que tienen editores distintos. Ejemplo: "Super Mario Advance 4 - Super Mario Bros. 3" que aparece cuatro veces con los editores: "Menace", "Independent", "Indecline" y "Trashman".
