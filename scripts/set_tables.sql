@@ -14,8 +14,8 @@ CREATE TABLE clientes (
     Canal ENUM('desconocido', 'web', 'llamadas', 'visitas', 'contactos'),
     FechaNacimiento DATE,
     FechaContacto DATE,
-    Email VARCHAR(60),
-    PRIMARY KEY (ClienteID)
+    Email VARCHAR(60)
+    #PRIMARY KEY (ClienteID)
 ) TABLESPACE TBLS_clientes;
 
 CREATE TABLE juegos (
@@ -23,16 +23,16 @@ CREATE TABLE juegos (
 	Titulo VARCHAR(32) UNIQUE NOT NULL,
 	Consola VARCHAR(12) NOT NULL,
 	Tamanio INT,
-	Editor VARCHAR(32),
-	PRIMARY KEY (JuegoID)
+	Editor VARCHAR(32)
+	#PRIMARY KEY (JuegoID)
 ) TABLESPACE TBLS_juegos;
 
 CREATE TABLE clientes_juegos (
 	ClienteID INT NOT NULL,
     JuegoID INT NOT NULL,
     FechaAlquiler DATE NOT NULL,
-    Comentarios VARCHAR(500),
-    PRIMARY KEY (ClienteID, JuegoID, FechaAlquiler),
-    FOREIGN KEY (ClienteID) REFERENCES clientes(ClienteID),
-    FOREIGN KEY (JuegoID) REFERENCES juegos(JuegoID)
+    Comentarios VARCHAR(500)
+    #PRIMARY KEY (ClienteID, JuegoID, FechaAlquiler),
+    #FOREIGN KEY (ClienteID) REFERENCES clientes(ClienteID),
+    #FOREIGN KEY (JuegoID) REFERENCES juegos(JuegoID)
 ) TABLESPACE TBLS_clientes_juegos;
