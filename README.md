@@ -89,8 +89,8 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
 
 - [X] Script de carga de los datos del juego de datos
 
-- [ ] Script de creación de las claves primarias de cada tabla
-- [ ] Script de creación de las claves foráneas
+- [X] Script de creación de las claves primarias de cada tabla
+- [X] Script de creación de las claves foráneas
 - [ ] Script de borrado de las claves foráneas de las tablas
 - [ ] Script de borrado de las claves primarias de las tablas
 
