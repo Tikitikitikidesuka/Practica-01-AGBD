@@ -87,7 +87,7 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
 - [X] Script de creación de las tablas de la BD en los espacios lógicos definidos anteriormente
 - [X] Script de eliminación de las tablas de la BD
 
-- [ ] Script de carga de los datos del juego de datos
+- [X] Script de carga de los datos del juego de datos
 
 - [ ] Script de creación de las claves primarias de cada tabla
 - [ ] Script de creación de las claves foráneas
