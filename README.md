@@ -4,9 +4,7 @@ Repositorio de la primera práctica de la asignatura de administración y gesti�
 
 ---
 
-## Instrucciones
-
-### Creación del servidor MySQL
+## Creación del servidor MySQL
 
 Con **Docker** instalado, ejecutar:
 
@@ -30,9 +28,55 @@ docker run --name mysql\
 
 ---
 
-## Parte 1
+## Inserción de los datos
 
-### Tareas
+La inserción de los datos desde ficheros tiene truco. Sin realizar algunos pasos previos, es muy probable que salte el siguiente error:
+
+``` 
+Error Code: 3948. Loading local data is disabled; this must be enabled on both the client and server sides
+```
+
+El primer paso para solucionar este problema es asegurarse de que el valor de la variable `local_infile` es `TRUE`. El valor se puede comprobar mediante la sentencia `SHOW GLOBAL VARIABLES LIKE 'local_infile';` aunque no es necesario comprobarlo, pues se puede establecer incondicionalmente como `TRUE` antes de realizar las operaciones de inserción.
+
+Se cambia el valor de la variable introduciendo la linea `SET GLOBAL local_infile = TRUE;`.
+
+Es importante acordarse de volver a establecer el valor a `FALSE` tras las inserciones. No hacerlo podría conllevar errores de seguridad para la base de datos.
+
+El proceso completo sería:
+
+```sql
+# Permitir la inserción de datos desde ficheros
+SET GLOBAL local_infile = TRUE;
+
+# Operaciones de inserción
+...
+# Fin de  las operaciones de inserción
+
+# Impedir la inserción de datos desde ficheros
+SET GLOBAL local_infile = FALSE;
+```
+
+Tras esto sigue siendo posible que salte otro error distinto:
+
+```
+Error Code: 2068. LOAD DATA LOCAL INFILE file request rejected due to restrictions on access.
+```
+
+Si se accede al servidor con **MySQL Workbench** el problema se soluciona editando las propiedades de la conexión.
+
+1. En la pagina de conexiones de MySQL Workbench se presiona click derecho sobre la conexión que se desea editar y se selecciona la opción "**Edit connection...**".
+2. Dentro de la ventana que se abre, **Manage Server Connections**, se pincha en la pestaña **Advanced**.
+3. En el cuadro de texto **Others** de la pestaña **Advanced** se introduce la siguiente linea al final: `OPT_LOCAL_INFILE=1`.
+
+Este será el aspecto final de la ventana **Manage Server Connections** se ha realizado el proceso correctamente:
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/68425553/194750333-02417ba3-0b71-47e1-9f61-161036064f87.png">
+</p>
+
+---
+
+### Tareas Parte 1
 
 - [X] Script de creación de la base de datos PracABD1
 - [X] Script de eliminación de la base de datos PracABD1
