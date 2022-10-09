@@ -2,26 +2,40 @@
 
 Repositorio de la primera práctica de la asignatura de administración y gestión de bases de datos.
 
-## Tareas
+---
 
-### Scripts
+## Parte 1
 
-**A cada tarea le corresponde un script**
+### Tareas
 
-- [X] Crear base de datos de nombre PracABD1
-- [X] Eliminar la base de datos de nombre PracABD1
+- [X] Script de creación de la base de datos PracABD1
+- [X] Script de eliminación de la base de datos PracABD1
 
-- [X] Crear los espacios físicos (datafiles) y lógicos (tablespaces) de la BD
-- [X] Eliminar los espacios físicos (datafiles) y lógicos (tablespaces) de la BD
+- [X] Script de creacion de los espacios físicos (datafiles) y lógicos (tablespaces) de la BD
+- [X] Script de eliminación de los espacios físicos (datafiles) y lógicos (tablespaces) de la BD
 
-- [X] Crear las tablas de la BD en los espacios lógicos definidos anteriormente
-- [X] Eliminar las tablas de la BD
+- [X] Script de creación de las tablas de la BD en los espacios lógicos definidos anteriormente
+- [X] Script de eliminación de las tablas de la BD
 
-- [ ] Inserción de los datos del juego de datos
+- [ ] Script de carga de los datos del juego de datos
 
-- [ ] Creación de las claves primarias de cada tabla
-- [ ] Creación de las claves foráneas
-- [ ] Borrado de las claves foráneas de las tablas
-- [ ] Borrado de las claves primarias de las tablas
+- [ ] Script de creación de las claves primarias de cada tabla
+- [ ] Script de creación de las claves foráneas
+- [ ] Script de borrado de las claves foráneas de las tablas
+- [ ] Script de borrado de las claves primarias de las tablas
 
-**Falta extraer las tareas del apartado 7 del enunciado**
+- [ ]  Justificación empírirca y razonada sobre la influencia de la creación de índices antes o después de hacer la carga de los datos
+  - [ ] Medición del tiempo de ejecución de los scripts **creando los índices antes de la carga**:
+    1. Creación de la base de datos
+    2. Creación de los espacios
+    3. Creación de las tablas
+    4. Creación de las claves primarias               (creación de índices)
+    5. Creación de las claves foráneas                (creación de índices)
+    6. Inserción de los datos del juego de datos      (inserción)
+  - [ ] Medición del tiempo de ejecución de los scripts **cargando los datos antes de la creación de los índices**:
+    1. Creación de la base de datos
+    2. Creación de los espacios
+    3. Creación de las tablas
+    4. Inserción de los datos del juego de datos      (inserción)
+    5. Creación de las claves primarias               (creación de índices)
+    6. Creación de las claves foráneas                (creación de índices)
