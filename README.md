@@ -4,6 +4,32 @@ Repositorio de la primera práctica de la asignatura de administración y gesti�
 
 ---
 
+## Instrucciones
+
+### Creación del servidor MySQL
+
+Con **Docker** instalado, ejecutar:
+
+```sh
+docker run --name <NOMBRE_DEL_CONTENDOR>\
+    -p <PUERTO_DE_ACCESO>:<PUERTO_DE_ACCESO>\
+    -e MYSQL_ROOT_PASSWORD=<CONTRASEÑA_DEL_USUARIO_ROOT>\
+    -d mysql:<VERSION_DE_MYSQL>
+```
+
+En nuestro caso en particular se ejecuta:
+
+```sh
+docker run --name mysql\
+    -p 3306:3306\
+    -e MYSQL_ROOT_PASSWORD=Keo\
+    -d mysql:8.0.22
+```
+
+**La contraseña está obviamente cambiada ( ͡ ͡° ͜ ʖ ͡ ͡°)**
+
+---
+
 ## Parte 1
 
 ### Tareas
