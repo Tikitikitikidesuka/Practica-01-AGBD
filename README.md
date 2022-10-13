@@ -24,7 +24,7 @@ docker run --name mysql\
     -d mysql:8.0.22
 ```
 
-**La contraseña está obviamente cambiada ( ͡ ͡° ͜ ʖ ͡ ͡°)**
+**( ͡° ͜ʖ ͡°) La contraseña está obviamente cambiada ¯\\\_(ツ)\_/¯**
 
 ---
 
