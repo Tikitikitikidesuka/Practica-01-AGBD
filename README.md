@@ -114,5 +114,5 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
 
 ## Comentarle a Dani
 
-1. Longitud de los títulos de los juegos no caben en 32 carácteres. Ejemplo: "Wagamama Fairy Mirumo de Pon! - Ougon Maracas no Densetsu"
-2. Colisiones por títulos repetidos de juegos, a pesar de que tienen editores distintos. Ejemplo: "Super Mario Advance 4 - Super Mario Bros. 3" que aparece cuatro veces con los editores: "Menace", "Independent", "Indecline" y "Trashman".
+1. Longitud de los títulos de los juegos no caben en 32 carácteres. Ejemplo: "Wagamama Fairy Mirumo de Pon! - Ougon Maracas no Densetsu" -> **Solución**: Aumentar el tamaño de las strings de 32 a 64.
+2. Colisiones por títulos repetidos de juegos, a pesar de que tienen editores distintos. Ejemplo: "Super Mario Advance 4 - Super Mario Bros. 3" que aparece cuatro veces con los editores: "Menace", "Independent", "Indecline" y "Trashman" -> **Solución**: Añadir al final de los títulos de los juegos repetidos el nombre de la compañía.
