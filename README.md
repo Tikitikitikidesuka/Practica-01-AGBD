@@ -24,7 +24,7 @@ docker run --name mysql\
     -d mysql:8.0.22
 ```
 
-**La contraseña está obviamente cambiada ( ͡ ͡° ͜ ʖ ͡ ͡°)**
+**( ͡° ͜ʖ ͡°) La contraseña está obviamente cambiada ¯\\\_(ツ)\_/¯**
 
 ---
 
@@ -112,7 +112,8 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
 
 --- 
 
-## Comentarle a Dani
+## Problemas
 
-1. Longitud de los títulos de los juegos no caben en 32 carácteres. Ejemplo: "Wagamama Fairy Mirumo de Pon! - Ougon Maracas no Densetsu"
-2. Colisiones por títulos repetidos de juegos, a pesar de que tienen editores distintos. Ejemplo: "Super Mario Advance 4 - Super Mario Bros. 3" que aparece cuatro veces con los editores: "Menace", "Independent", "Indecline" y "Trashman".
+- [X] Longitud de los títulos de los juegos no caben en 32 carácteres. Ejemplo: "Wagamama Fairy Mirumo de Pon! - Ougon Maracas no Densetsu" -> **Solución**: Aumentar el tamaño de las strings a más de 32 carácteres.
+- [ ] Colisiones por títulos repetidos de juegos, a pesar de que tienen editores distintos. Ejemplo: "Super Mario Advance 4 - Super Mario Bros. 3" que aparece cuatro veces con los editores: "Menace", "Independent", "Indecline" y "Trashman" -> **Solución propuesta**: Añadir al final de los títulos de los juegos repetidos el nombre de la compañía.
+- [ ] Colisiones por títulos repetidos de juegos que no tienen editores, por lo que no se puede resolver igual que el problema anterior. -> **Solución propuesta**: Ya que las filas son idénticas excepto el id, eliminar los juegos duplicados y actualizar la tabla clientes_juegos para que usen el id de la versión no eliminada.
