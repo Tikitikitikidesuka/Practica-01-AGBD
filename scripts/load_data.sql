@@ -28,7 +28,7 @@ LOAD XML LOCAL INFILE '/home/miguel/Documents/projects/practica_01_agdb/datos/Ni
 	INTO TABLE juegos
     ROWS IDENTIFIED BY '<game>'
     (@imageNumber, @title, @romSize, @location, @language, @im1CRC, @im2CRC, @comment)
-    SET JuegoID = CAST(@imageNumber AS DECIMAL) + 12000, Titulo = @title, Consola = 'Nintendo', Tamanio = CAST(@romSize AS DECIMAL), Editor = NULL;
+    SET JuegoID = CAST(@imageNumber AS DECIMAL) + 12000, Titulo = @title, Consola = 'Nintendo', Tamanio = CAST(@romSize AS DECIMAL), Editor = 'Nintendo';
 
 LOAD XML LOCAL INFILE '/home/miguel/Documents/projects/practica_01_agdb/datos/GameBoy.xml'
 	INTO TABLE juegos
