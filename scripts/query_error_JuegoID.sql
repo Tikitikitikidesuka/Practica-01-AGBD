@@ -6,6 +6,8 @@
 /**
  * Mínimo y máximo `JuegoID` de los juegos de la MegaDrive
  */
+
+USE PracABD1;
  
 SELECT MIN(JuegoID), MAX(JuegoID)
 	FROM juegos
