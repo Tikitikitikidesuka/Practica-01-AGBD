@@ -91,8 +91,8 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
 
 - [X] Script de creación de las claves primarias de cada tabla
 - [X] Script de creación de las claves foráneas
-- [ ] Script de borrado de las claves foráneas de las tablas
-- [ ] Script de borrado de las claves primarias de las tablas
+- [X] Script de borrado de las claves foráneas de las tablas
+- [X] Script de borrado de las claves primarias de las tablas
 
 - [ ]  Justificación empírirca y razonada sobre la influencia de la creación de índices antes o después de hacer la carga de los datos
   - [ ] Medición del tiempo de ejecución de los scripts **creando los índices antes de la carga**:
