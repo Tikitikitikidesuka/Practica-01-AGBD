@@ -1,0 +1,5 @@
+USE PracABD1;
+
+ALTER TABLE clientes_juegos
+DROP CONSTRAINT FK_ClienteID,
+DROP CONSTRAINT FK_JuegoID;

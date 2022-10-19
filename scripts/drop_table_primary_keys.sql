@@ -1,0 +1,12 @@
+USE PracABD1;
+
+ALTER TABLE clientes
+DROP PRIMARY KEY;
+
+
+ALTER TABLE juegos
+DROP PRIMARY KEY;
+
+ALTER TABLE clientes_juegos
+DROP PRIMARY KEY;
+
