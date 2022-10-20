@@ -135,7 +135,7 @@
 
 Como primer paso, creamos los scripts \emph{creator.sql} y \emph{dropper.sql}, encargados respectivamente de crear y eliminar el esquema de la base de datos \emph{PracABD1}.\\
 
-Para crear el esquema, utilizamos la sentencia \mintinline{mysql}{CREATE SCHEMA PracABD1}. Tras esa, siguen otras dos que lo configuran para permitir el uso de carácteres internacionales: \mintinline{mysql}{DEFAULT CHARATTER SET utf8mb4} y \mintinline{mysql}{COLLATE utf8mb4_unicode_ci}. Esto permitirá que la base de datos almacene vocales con tildes y la `ñ' presentes en el juego de datos.\\
+Para crear el esquema, utilizamos la sentencia \mintinline{mysql}{CREATE SCHEMA PracABD1}. Tras esa, siguen otras dos que lo configuran para permitir el uso de carácteres internacionales: \mintinline{mysql}{DEFAULT CHARATTER SET utf8mb4} y \mintinline{mysql}{COLLATE utf8mb4_unicode_ci}. Esto permitirá que la base de datos almacene vocales con tildes y la `ñ', presentes en el juego de datos.\\
 
 \inputminted{mysql}{\scriptdir creator.sql}
 
