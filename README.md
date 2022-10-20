@@ -91,8 +91,8 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
 
 - [X] Script de creación de las claves primarias de cada tabla
 - [X] Script de creación de las claves foráneas
-- [ ] Script de borrado de las claves foráneas de las tablas
-- [ ] Script de borrado de las claves primarias de las tablas
+- [X] Script de borrado de las claves foráneas de las tablas
+- [X] Script de borrado de las claves primarias de las tablas
 
 - [ ]  Justificación empírirca y razonada sobre la influencia de la creación de índices antes o después de hacer la carga de los datos
   - [ ] Medición del tiempo de ejecución de los scripts **creando los índices antes de la carga**:
@@ -115,5 +115,5 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
 ## Problemas
 
 - [X] Longitud de los títulos de los juegos no caben en 32 carácteres. Ejemplo: "Wagamama Fairy Mirumo de Pon! - Ougon Maracas no Densetsu" -> **Solución**: Aumentar el tamaño de las strings a más de 32 carácteres.
-- [ ] Colisiones por títulos repetidos de juegos, a pesar de que tienen editores distintos. Ejemplo: "Super Mario Advance 4 - Super Mario Bros. 3" que aparece cuatro veces con los editores: "Menace", "Independent", "Indecline" y "Trashman" -> **Solución propuesta**: Añadir al final de los títulos de los juegos repetidos el nombre de la compañía.
-- [ ] Colisiones por títulos repetidos de juegos que no tienen editores, por lo que no se puede resolver igual que el problema anterior. -> **Solución propuesta**: Ya que las filas son idénticas excepto el id, eliminar los juegos duplicados y actualizar la tabla clientes_juegos para que usen el id de la versión no eliminada.
+- [X] Colisiones por títulos repetidos de juegos, a pesar de que tienen editores distintos. Ejemplo: "Super Mario Advance 4 - Super Mario Bros. 3" que aparece cuatro veces con los editores: "Menace", "Independent", "Indecline" y "Trashman" -> **Solución propuesta**: Añadir al final de los títulos de los juegos repetidos el nombre de la compañía.
+- [X] Colisiones por títulos repetidos de juegos que no tienen editores, por lo que no se puede resolver igual que el problema anterior. -> **Solución propuesta**: Ya que las filas son idénticas excepto el id, eliminar los juegos duplicados y actualizar la tabla clientes_juegos para que usen el id de la versión no eliminada.
