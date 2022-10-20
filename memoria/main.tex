@@ -9,6 +9,7 @@
 \usepackage[utf8]{inputenc} % Para permitir el input de carácteres internacionales
 \usepackage[T1]{fontenc} % Para permitir el output de carácteres internacionales
 \usepackage{hyperref} % Para poner links en el índice
+\usepackage{minted} % Para poner código
 
 \hypersetup{
 	colorlinks=true,	% Links del índice visibles
@@ -108,11 +109,31 @@
 
 \subsection{Scripts de gestion de la base de datos}
 
-Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
+Para comenzar, creamos los scripts `creator.sql` y `dropper.sql`, encargados respectivamente de crear y eliminar el esquema de la base de datos `PracABD1`.
+
+Para crear el esquema, utilizamos la sentencia `CREATE SCHEMA PracABD1`. A continuación, nos aseguramos de configurarlo para que permita el uso de carácteres internacionales mediante `DEFAULT CHARATTER SET utf8mb4` y `COLLATE utf8mb4_unicode_ci;`. Esto permitirá que la base de datos almacene vocales con tildes y la 'ñ', presentes en el juego de datos.
+
+Para eliminarlo, simplemente se ejecuta `DROP SCHEMA PracABD1;`.
+
+Script `creator.sql`:
+
+\begin{minted}{mysql}
+	CREATE SCHEMA PracABD1
+	DEFAULT CHARACTER SET utf8mb4
+	COLLATE utf8mb4_unicode_ci;
+\end{minted}
+
+Script `dropper.sql`:
+
+\begin{minted}{mysql}
+	DROP SCHEMA PracABD1;
+\end{minted}
 
 \subsection{Scripts de gestión de los espacios físicos}
 
 Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
+
+A cada tabla le corresponde una
 
 \subsection{Scripts de gestión de las tablas}
 
