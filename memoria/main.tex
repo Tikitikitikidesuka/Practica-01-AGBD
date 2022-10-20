@@ -27,12 +27,14 @@
 	frame=single,		% Caja alrededor del código
 	framesep=8pt,		% Margen entre la caja y el código
 	bgcolor=MintedBG,	% Color de fondo
+	breaklines,		% Permitir cortar la linea en un linebreak
+	breakafter=_,		% Permitir cortar palabras en las barras bajas
 }
 
 \setmintedinline[mysql]{
 	bgcolor={},		% Quitar color de fondo del código inline
 	breaklines,		% Permitir cortar la linea en un linebreak
-	breakafter=_,
+	breakafter=_,		% Permitir cortar palabras en las barras bajas
 }
 
 \hypersetup{
@@ -145,9 +147,15 @@ Eliminar el esquema se realiza através de la sentencia \mintinline{mysql}{DROP 
 
 \subsection{Scripts de gestión de los espacios físicos}
 
-Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
+A cada tabla le corresponde un espacio, que se crea mediante el siguiente script:
 
-A cada tabla le corresponde una
+\inputminted{mysql}{\scriptdir set_physical.sql}
+
+Como se puede ver, cada espacio de tabla tiene su propio fichero asignado.
+
+La eliminación de los espacios creados se realiza através de un script igual de sencillo:
+
+\inputminted{mysql}{\scriptdir drop_physical.sql}
 
 \subsection{Scripts de gestión de las tablas}
 
