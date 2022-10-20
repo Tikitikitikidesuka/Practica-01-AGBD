@@ -4,17 +4,41 @@
 
 \documentclass[a4paper, 11pt, oneside]{article} % Hoja A4, fuente 11pt y oneside
 
+\newcommand{\scriptdir}{../scripts/} % Directorio de los scripts
 \newcommand{\plogo}{\fbox{$\mathcal{LCDPM}$}} % Logo del publisher
 
+\usepackage[parfill]{parskip} % Para no indentar la primera linea de cada párrafo
 \usepackage[utf8]{inputenc} % Para permitir el input de carácteres internacionales
 \usepackage[T1]{fontenc} % Para permitir el output de carácteres internacionales
 \usepackage{hyperref} % Para poner links en el índice
+\usepackage{xcolor} % Para poner colores 
 \usepackage{minted} % Para poner código
+
+\tolerance=9999			% Permite espacios en blanco grandes entre palabras
+\emergencystretch=10pt		% Permite un poco de flexibilidad en la longitud de linea
+\hyphenpenalty=10000		% Deshabilita los guiones para cortar palabras
+\exhyphenpenalty=100		% Permite usar guiones puestos por el usuario
+
+\definecolor{MintedBG}{HTML}{F2EEE9} % Color de fondo de las cajas minted
+
+\setlength{\fboxsep}{0pt} % Quitar margen de color de las cajas minted
+
+\setminted[mysql]{
+	frame=single,		% Caja alrededor del código
+	framesep=8pt,		% Margen entre la caja y el código
+	bgcolor=MintedBG,	% Color de fondo
+}
+
+\setmintedinline[mysql]{
+	bgcolor={},		% Quitar color de fondo del código inline
+	breaklines,		% Permitir cortar la linea en un linebreak
+	breakafter=_,
+}
 
 \hypersetup{
 	colorlinks=true,	% Links del índice visibles
 	linktoc=all,		% Links del índice activados
-	linkcolor=black,		% Links del índice negros
+	linkcolor=black,	% Links del índice negros
 }
 
 %----------------------------------------------------------------------------------------
@@ -109,25 +133,15 @@
 
 \subsection{Scripts de gestion de la base de datos}
 
-Para comenzar, creamos los scripts `creator.sql` y `dropper.sql`, encargados respectivamente de crear y eliminar el esquema de la base de datos `PracABD1`.
+Como primer paso, creamos los scripts \emph{creator.sql} y \emph{dropper.sql}, encargados respectivamente de crear y eliminar el esquema de la base de datos \emph{PracABD1}.\\
 
-Para crear el esquema, utilizamos la sentencia `CREATE SCHEMA PracABD1`. A continuación, nos aseguramos de configurarlo para que permita el uso de carácteres internacionales mediante `DEFAULT CHARATTER SET utf8mb4` y `COLLATE utf8mb4_unicode_ci;`. Esto permitirá que la base de datos almacene vocales con tildes y la 'ñ', presentes en el juego de datos.
+Para crear el esquema, utilizamos la sentencia \mintinline{mysql}{CREATE SCHEMA PracABD1}. Tras esa, siguen otras dos que lo configuran para permitir el uso de carácteres internacionales: \mintinline{mysql}{DEFAULT CHARATTER SET utf8mb4} y \mintinline{mysql}{COLLATE utf8mb4_unicode_ci}. Esto permitirá que la base de datos almacene vocales con tildes y la `ñ' presentes en el juego de datos.\\
 
-Para eliminarlo, simplemente se ejecuta `DROP SCHEMA PracABD1;`.
+\inputminted{mysql}{\scriptdir creator.sql}
 
-Script `creator.sql`:
+Eliminar el esquema se realiza através de la sentencia \mintinline{mysql}{DROP SCHEMA PracABD1}.\\
 
-\begin{minted}{mysql}
-	CREATE SCHEMA PracABD1
-	DEFAULT CHARACTER SET utf8mb4
-	COLLATE utf8mb4_unicode_ci;
-\end{minted}
-
-Script `dropper.sql`:
-
-\begin{minted}{mysql}
-	DROP SCHEMA PracABD1;
-\end{minted}
+\inputminted{mysql}{\scriptdir dropper.sql}
 
 \subsection{Scripts de gestión de los espacios físicos}
 
