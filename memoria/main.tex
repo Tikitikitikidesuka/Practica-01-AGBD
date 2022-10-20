@@ -159,15 +159,21 @@ La eliminación de los espacios creados se realiza através de un script igual d
 
 \subsection{Scripts de gestión de las tablas}
 
-Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
+Inicalmente, las tablas se establecieron como se indicaba en el anexo, pero debido a un problema durante la carga de datos, hubo que modificar el número de carácteres de los títulos de los juegos a un número mayor que 32.
 
-\subsection{Ejecución de los scripts}
+\inputminted{mysql}{\scriptdir set_tables.sql}
 
-Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
+Eliminar las tablas no supuso mucha dificultad:
+
+\inputminted{mysql}{\scriptdir drop_tables.sql}
 
 \subsection{Inserción de los datos}
 
-Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
+La carga de datos es donde el proyecto se pone interesante.
+
+MySQL ofrece dos sentencias muy cómodas para cargar datos de ficheros: \mintinline{mysql}{LOAD DATA LOCAL INFILE} y \mintinline{mysql}{LOAD XML LOCAL INFILE} para \emph{csv} y \emph{xml} respectivamente.
+
+Ambas sentencias requieren la especificación de un mapeo de los tipos de los ficheros a las columnas de la base de datos. El único misterio de este problema es la necesidad de transformar el formato de las fechas de cadenas de carácteres a tipos \mintinline{mysql}{DATE} de MySQL y de sumar el valor correspondiente a los ids como se especificó en el anexo.
 
 \subsection{Scripts de gestión de claves}
 
