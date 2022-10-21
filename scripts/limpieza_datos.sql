@@ -2,6 +2,9 @@ USE PracABD1;
 
 SET sql_safe_updates = FALSE;
 
+
+# Concatenar el editor al título del juego
+
 UPDATE juegos
 	SET juegos.Titulo = CONCAT(juegos.Titulo, ' - ', juegos.Editor)
 	WHERE juegos.Editor IS NOT NULL AND juegos.Titulo IN (
@@ -12,6 +15,8 @@ UPDATE juegos
 				HAVING COUNT(juegos.Titulo) > 1
 			) AS titulos_repetidos
 		);
+
+# Eliminar ids de juegos duplicados y actualizar tabla de cruce
 
 CREATE TEMPORARY TABLE juegos_id_map
 	SELECT juegos.JuegoID AS OLD_ID, NEW_ID
