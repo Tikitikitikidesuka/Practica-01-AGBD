@@ -15,7 +15,7 @@ SELECT MIN(JuegoID), MAX(JuegoID)
     
 SELECT MIN(JuegoID), MAX(JuegoID)
 	FROM clientes_juegos
-    WHERE JuegoID < 12000;
+	WHERE JuegoID < 12000;
     
 /**
  * Mínimo y máximo `JuegoID` de los juegos de la Nintendo
@@ -27,7 +27,7 @@ SELECT MIN(JuegoID), MAX(JuegoID)
     
 SELECT MIN(JuegoID), MAX(JuegoID)
 	FROM clientes_juegos
-    WHERE JuegoID >= 12000 AND JuegoID < 15000;
+	WHERE JuegoID >= 12000 AND JuegoID < 15000;
     
 /**
  * Mínimo y máximo `JuegoID` de los juegos de la GameBoy
@@ -39,7 +39,7 @@ SELECT MIN(JuegoID), MAX(JuegoID)
     
 SELECT MIN(JuegoID), MAX(JuegoID)
 	FROM clientes_juegos
-    WHERE JuegoID >= 15000; 
+	WHERE JuegoID >= 15000; 
 
 /**
  * Mínimo y máximo `JuegoID` de los juegos de la GameBoy
@@ -47,4 +47,4 @@ SELECT MIN(JuegoID), MAX(JuegoID)
 
 SELECT *
 	FROM clientes_juegos LEFT JOIN juegos ON juegos.JuegoID = clientes_juegos.JuegoID
-    WHERE juegos.JuegoID IS NULL;
+	WHERE juegos.JuegoID IS NULL;

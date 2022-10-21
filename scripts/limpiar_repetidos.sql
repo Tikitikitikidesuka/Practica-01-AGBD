@@ -2,7 +2,7 @@ DELIMITER $$
 CREATE PROCEDURE limpiarRepetidos()
 BEGIN
 	DECLARE done INT DEFAULT FALSE;
-    DECLARE idMinimo INT;
+	DECLARE idMinimo INT;
 	DECLARE tit VARCHAR(256);
 	DECLARE cur1 CURSOR FOR (SELECT juegos.Titulo
 								FROM juegos

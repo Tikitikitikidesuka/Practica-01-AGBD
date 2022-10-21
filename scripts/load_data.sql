@@ -20,21 +20,21 @@ LOAD DATA LOCAL INFILE '/home/miguel/Documents/projects/practica_01_agdb/datos/C
 
 LOAD XML LOCAL INFILE '/home/miguel/Documents/projects/practica_01_agdb/datos/MegaDrive.xml'
 	INTO TABLE juegos
-    ROWS IDENTIFIED BY '<game>'
-    (@imageNumber, @releaseNumber, @title, @romSize, @publisher, @location, @sourceRom, @language, @im1CRC, @im2CRC, @comment)
-    SET JuegoID = CAST(@imageNumber AS DECIMAL) + 10000, Titulo = @title, Consola = 'MegaDrive', Tamanio = CAST(@romSize AS DECIMAL), Editor = @publisher;
+	ROWS IDENTIFIED BY '<game>'
+	(@imageNumber, @releaseNumber, @title, @romSize, @publisher, @location, @sourceRom, @language, @im1CRC, @im2CRC, @comment)
+	SET JuegoID = CAST(@imageNumber AS DECIMAL) + 10000, Titulo = @title, Consola = 'MegaDrive', Tamanio = CAST(@romSize AS DECIMAL), Editor = @publisher;
 
 LOAD XML LOCAL INFILE '/home/miguel/Documents/projects/practica_01_agdb/datos/Nintendo.xml'
 	INTO TABLE juegos
-    ROWS IDENTIFIED BY '<game>'
-    (@imageNumber, @title, @romSize, @location, @language, @im1CRC, @im2CRC, @comment)
-    SET JuegoID = CAST(@imageNumber AS DECIMAL) + 12000, Titulo = @title, Consola = 'Nintendo', Tamanio = CAST(@romSize AS DECIMAL), Editor = 'Nintendo';
+	ROWS IDENTIFIED BY '<game>'
+	(@imageNumber, @title, @romSize, @location, @language, @im1CRC, @im2CRC, @comment)
+	SET JuegoID = CAST(@imageNumber AS DECIMAL) + 12000, Titulo = @title, Consola = 'Nintendo', Tamanio = CAST(@romSize AS DECIMAL), Editor = 'Nintendo';
 
 LOAD XML LOCAL INFILE '/home/miguel/Documents/projects/practica_01_agdb/datos/GameBoy.xml'
 	INTO TABLE juegos
-    ROWS IDENTIFIED BY '<game>'
-    (@imageNumber, @releaseNumber, @title, @saveType, @romSize, @publisher, @location, @sourceRom, @language, @im1CRC, @im2CRC, @comment, @duplicateID)
-    SET JuegoID = CAST(@imageNumber AS DECIMAL) + 15000, Titulo = @title, Consola = 'GameBoy', Tamanio = CAST(@romSize AS DECIMAL), Editor = @publisher;
+	ROWS IDENTIFIED BY '<game>'
+	(@imageNumber, @releaseNumber, @title, @saveType, @romSize, @publisher, @location, @sourceRom, @language, @im1CRC, @im2CRC, @comment, @duplicateID)
+	SET JuegoID = CAST(@imageNumber AS DECIMAL) + 15000, Titulo = @title, Consola = 'GameBoy', Tamanio = CAST(@romSize AS DECIMAL), Editor = @publisher;
     
 LOAD DATA LOCAL INFILE '/home/miguel/Documents/projects/practica_01_agdb/datos/Clientes_Juegos.csv'
 	INTO TABLE clientes_juegos
