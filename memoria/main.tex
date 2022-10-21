@@ -5,12 +5,14 @@
 \documentclass[a4paper, 11pt, oneside]{article} % Hoja A4, fuente 11pt y oneside
 
 \newcommand{\scriptdir}{../scripts/} % Directorio de los scripts
+\newcommand{\imagedir}{../images/} % Directorio de las imagenes
 \newcommand{\plogo}{\fbox{$\mathcal{LCDPM}$}} % Logo del publisher
 
 \usepackage[parfill]{parskip} % Para no indentar la primera linea de cada párrafo
 \usepackage[utf8]{inputenc} % Para permitir el input de carácteres internacionales
 \usepackage[T1]{fontenc} % Para permitir el output de carácteres internacionales
 \usepackage{hyperref} % Para poner links en el índice
+\usepackage{graphicx} % Para incluir imágenes
 \usepackage{xcolor} % Para poner colores 
 \usepackage{minted} % Para poner código
 
@@ -23,7 +25,7 @@
 
 \setlength{\fboxsep}{0pt} % Quitar margen de color de las cajas minted
 
-\setminted[mysql]{
+\setminted[]{
 	frame=single,		% Caja alrededor del código
 	framesep=8pt,		% Margen entre la caja y el código
 	bgcolor=MintedBG,	% Color de fondo
@@ -31,7 +33,7 @@
 	breakafter=_,		% Permitir cortar palabras en las barras bajas
 }
 
-\setmintedinline[mysql]{
+\setmintedinline[]{
 	bgcolor={},		% Quitar color de fondo del código inline
 	breaklines,		% Permitir cortar la linea en un linebreak
 	breakafter=_,		% Permitir cortar palabras en las barras bajas
@@ -133,6 +135,9 @@
 	
 \section{Parte 1}
 
+
+
+
 \subsection{Scripts de gestion de la base de datos}
 
 Como primer paso, creamos los scripts \emph{creator.sql} y \emph{dropper.sql}, encargados respectivamente de crear y eliminar el esquema de la base de datos \emph{PracABD1}.\\
@@ -144,6 +149,9 @@ Para crear el esquema, utilizamos la sentencia \mintinline{mysql}{CREATE SCHEMA 
 Eliminar el esquema se realiza através de la sentencia \mintinline{mysql}{DROP SCHEMA PracABD1}.\\
 
 \inputminted{mysql}{\scriptdir dropper.sql}
+
+
+
 
 \subsection{Scripts de gestión de los espacios físicos}
 
@@ -157,29 +165,95 @@ La eliminación de los espacios creados se realiza através de un script igual d
 
 \inputminted{mysql}{\scriptdir drop_physical.sql}
 
+
+
+
 \subsection{Scripts de gestión de las tablas}
 
-Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
+Inicalmente, las tablas se establecieron como se indicaba en el anexo, pero debido a un problema durante la carga de datos, hubo que modificar el número de carácteres de los títulos de los juegos a un número mayor que 32.
 
-\subsection{Ejecución de los scripts}
+\inputminted{mysql}{\scriptdir set_tables.sql}
 
-Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
+Eliminar las tablas no supuso mucha dificultad:
+
+\inputminted{mysql}{\scriptdir drop_tables.sql}
+
+
+
 
 \subsection{Inserción de los datos}
 
-Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
+Hasta este punto del desarrollo no surgieron muchos problemas, es a partir de la carga de datos que empieza lo entretenido.
+
+MySQL ofrece dos sentencias muy cómodas para cargar datos de ficheros: \mintinline{mysql}{LOAD DATA LOCAL INFILE} y \mintinline{mysql}{LOAD XML LOCAL INFILE} para \emph{csv} y \emph{xml} respectivamente.
+
+Ambas sentencias requieren que se especifique que datos del fichero corresponden a cuales de la tabla, permitiendo además que se realizen algunas operaciones sobre ellos antes de introducirlos. Las únicas transformaciones de datos necesarias fueron el cambio de formato de las fechas y el cambio de ids de los juegos. Un pequeño ejemplo de uso:
+
+El script de carga resultante parecía prometedor, pero saltaba el siguiente error al ejecutarlo: \emph{Error Code: 3948. Loading local data is disabled; this must be enabled on both the client and server sides}. La solución a este problema es cambiar el valor de la variable \mintinline{mysql}{local_infile} a \mintinline{mysql}{TRUE}. Esto permite la carga de datos desde ficheros, que por defecto está desactivada por motivos de seguridad. Es importante que tras la carga de los datos se vuelva a poner el valor de la variable a \mintinline{mysql}{FALSE}, para evitar posibles riesgos en el futuro:
+
+\begin{minted}{mysql}
+# Permitir la inserción de datos desde ficheros
+SET GLOBAL local_infile = TRUE;
+
+# Operaciones de inserción
+...
+# Fin de  las operaciones de inserción
+
+# Impedir la inserción de datos desde ficheros
+SET GLOBAL local_infile = FALSE;
+\end{minted}
+
+Aun con este cambio es posible que salte este otro error: \emph{Error Code: 2068. LOAD DATA LOCAL INFILE file request rejected due to restrictions on access}. Este en particular es debido a las propiedades de la conexión con la base de datos. Para solucionarlo se pueden editar dichas propiedades en el panel de conexiones de \textbf{MySQL Workbench}, herramienta através de la que trabábamos con nuestra base de datos:
+
+\begin{enumerate}
+	\item En la pagina de conexiones de MySQL Workbench se presiona click derecho sobre la conexión que se desea editar y se selecciona la opción "\textbf{Edit connection...}".
+	\item Dentro de la ventana que se abre, \textbf{Manage Server Connections}, se pincha en la pestaña \textbf{Advanced}.
+	\item En el cuadro de texto Others de la pestaña Advanced se introduce la siguiente linea al final: \mintinline{text}{OPT_LOCAL_INFILE=1}.
+\end{enumerate}
+
+A continuación se muestra una imagen de como debería quedar la ventana de conexiones:
+
+\includegraphics[width=\textwidth]{\imagedir ventana_conexion_mysql_workbench.png}
+
+Con estos dos arreglos ya por fín pudimos cargar los datos a la base de datos, pero resultó que esos dos problemas eran solo el principio. El juego de datos tenía múltiples problemas que se debían solucionar para poder insertar claves a las tablas:
+
+\begin{enumerate}
+	\item En los datos de \emph{Clientes_Juegos} había un par de juegos que no existían, el 12000 y el 15000.
+
+	\item Algunos juegos tenian títulos repetidos. Estos se descomponian en dos tipos:
+	\begin{enumerate}
+		\item Algunos tenían el resto de los atributos distintos, como el editor.
+		\item Otros tenían todo idéntico salvo las claves.
+	\end{enumerate}
+\end{enumerate}
+
+La solución al primer problema fue eliminar las filas que referenciaban juegos inexistentes. La solución al segundo no fue ni de cerca tan sencilla.
+
+Para arreglar los juegos con título idéntico pero de diferentes editores, concatenamos el título con el editor de forma que los títulos se volviesen únicos entre ellos. Para arreglar el segundo caso, los juegos duplicados debían ser eliminados de forma que solo quedase una fila y un id por cada título. El problema es que antes de eliminar los dúplicados era necesario visitar la tabla de cruce entre los clientes y los juegos y cambiar todos los ids de juegos que serían eliminados por el id del juego que sobrevive. Esto se logró con el siguiente script:
+
+\inputminted{mysql}{\scriptdir limpieza_datos.sql}
+
 
 \subsection{Scripts de gestión de claves}
 
 Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
 
+
+
+
 \subsection{Conflicto de claves y datos}
 
 Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
 
+
+
+
 \subsection{¿Importa el orden de inserción de claves y datos?}
 
 Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
+
+
+
 	
 \newpage
 
@@ -189,7 +263,7 @@ Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultado
 
 \section{Parte 2}
 
-Texto parte 2 xd...
+Texto parte 2 xd... 32
 	
 \newpage
 
