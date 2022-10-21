@@ -5,12 +5,14 @@
 \documentclass[a4paper, 11pt, oneside]{article} % Hoja A4, fuente 11pt y oneside
 
 \newcommand{\scriptdir}{../scripts/} % Directorio de los scripts
+\newcommand{\imagedir}{../images/} % Directorio de las imagenes
 \newcommand{\plogo}{\fbox{$\mathcal{LCDPM}$}} % Logo del publisher
 
 \usepackage[parfill]{parskip} % Para no indentar la primera linea de cada párrafo
 \usepackage[utf8]{inputenc} % Para permitir el input de carácteres internacionales
 \usepackage[T1]{fontenc} % Para permitir el output de carácteres internacionales
 \usepackage{hyperref} % Para poner links en el índice
+\usepackage{graphicx} % Para incluir imágenes
 \usepackage{xcolor} % Para poner colores 
 \usepackage{minted} % Para poner código
 
@@ -208,6 +210,29 @@ Aun con este cambio es posible que salte este otro error: \emph{Error Code: 2068
 	\item Dentro de la ventana que se abre, \textbf{Manage Server Connections}, se pincha en la pestaña \textbf{Advanced}.
 	\item En el cuadro de texto Others de la pestaña Advanced se introduce la siguiente linea al final: \mintinline{text}{OPT_LOCAL_INFILE=1}.
 \end{enumerate}
+
+A continuación se muestra una imagen de como debería quedar la ventana de conexiones:
+
+\includegraphics[width=\textwidth]{\imagedir ventana_conexion_mysql_workbench.png}
+
+Con estos dos arreglos ya por fín pudimos cargar los datos a la base de datos, pero resultó que esos dos problemas eran solo el principio. El juego de datos tenía múltiples problemas que se debían solucionar para poder insertar claves a las tablas:
+
+\begin{enumerate}
+	\item En los datos de \emph{Clientes_Juegos} había un par de juegos que no existían, el 12000 y el 15000.
+
+	\item Algunos juegos tenian títulos repetidos. Estos se descomponian en dos tipos:
+	\begin{enumerate}
+		\item Algunos tenían el resto de los atributos distintos, como el editor.
+		\item Otros tenían todo idéntico salvo las claves.
+	\end{enumerate}
+\end{enumerate}
+
+La solución al primer problema fue eliminar las filas que referenciaban juegos inexistentes. La solución al segundo no fue ni de cerca tan sencilla.
+
+Para arreglar los juegos con título idéntico pero de diferentes editores, concatenamos el título con el editor de forma que los títulos se volviesen únicos entre ellos. Para arreglar el segundo caso, los juegos duplicados debían ser eliminados de forma que solo quedase una fila y un id por cada título. El problema es que antes de eliminar los dúplicados era necesario visitar la tabla de cruce entre los clientes y los juegos y cambiar todos los ids de juegos que serían eliminados por el id del juego que sobrevive. Esto se logró con el siguiente script:
+
+\inputminted{mysql}{\scriptdir limpieza_datos.sql}
+
 
 \subsection{Scripts de gestión de claves}
 
