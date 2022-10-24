@@ -6,6 +6,8 @@ SHOW VARIABLES LIKE 'secure_file_priv';
 # Para acceder al entorno del contenedor docker MySQL: `docker exec -it mysql bash`
 
 SELECT * FROM clientes INTO OUTFILE '/tmp/clientes.csv';
+SELECT * FROM juegos INTO OUTFILE '/tmp/juegos.csv';
+SELECT * FROM clientes_juegos INTO OUTFILE '/tmp/clientes_juegos.csv';
 
 # El fichero se creará dentro del sistema de ficheros del contenedor docker.
 # Para extraerlo: `docker cp mysql:/tmp/clientes.csv <destino>`
