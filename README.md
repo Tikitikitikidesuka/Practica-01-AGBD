@@ -94,21 +94,25 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
 - [X] Script de borrado de las claves foráneas de las tablas
 - [X] Script de borrado de las claves primarias de las tablas
 
-- [ ]  Justificación empírirca y razonada sobre la influencia de la creación de índices antes o después de hacer la carga de los datos
-  - [X] Medición del tiempo de ejecución de los scripts **creando los índices antes de la carga**: T = 2.4412 s
-    1. Creación de la base de datos
-    2. Creación de los espacios
-    3. Creación de las tablas
-    4. Creación de las claves primarias               (creación de índices)     T = 259.24 ms
-    5. Creación de las claves foráneas                (creación de índices)     T = 178.14 ms
-    6. Inserción de los datos del juego de datos      (inserción)               T = 2.0038 s
-  - [X] Medición del tiempo de ejecución de los scripts **cargando los datos antes de la creación de los índices**: T = 8.5519 s
-    1. Creación de la base de datos
-    2. Creación de los espacios
-    3. Creación de las tablas
-    4. Inserción de los datos del juego de datos      (inserción)               T = 1.6264 s
-    5. Creación de las claves primarias               (creación de índices)     T = 6.6568 s
-    6. Creación de las claves foráneas                (creación de índices)     T = 268.76 ms
+- [X]  Justificación empírirca y razonada sobre la influencia de la creación de índices antes o después de hacer la carga de los datos
+    - [X] Medición del tiempo de ejecución de los scripts **creando los índices antes de la carga**: T = 2.4412 s
+        1. Creación de la base de datos
+        2. Creación de los espacios
+        3. Creación de las tablas
+        4. Creación de las claves primarias               (creación de índices)     T = 259.24 ms
+        5. Creación de las claves foráneas                (creación de índices)     T = 178.14 ms
+        6. Inserción de los datos del juego de datos      (inserción)               T = 2.0038 s
+    - [X] Medición del tiempo de ejecución de los scripts **cargando los datos antes de la creación de los índices**: T = 8.5519 s
+        1. Creación de la base de datos
+        2. Creación de los espacios
+        3. Creación de las tablas
+        4. Inserción de los datos del juego de datos      (inserción)               T = 1.6264 s
+        5. Creación de las claves primarias               (creación de índices)     T = 6.6568 s
+        6. Creación de las claves foráneas                (creación de índices)     T = 268.76 ms
+
+    Explicación razonada:
+        Si primero se ponen las claves y se crean sus índices, cada vez que se introduzca un dato se comprueba si cumple las restricciones y dado que ya existe un índice de las claves, se puede hacer mucho más rápidamente que comprobando que la clave es única fila a fila.
+        Si se introdujesen los datos primero y luego se insertasen las claves, crear sus índices sería una tarea muchísimo más costosa, como se puede ver por los tiempos obtenidos.
 
 --- 
 
