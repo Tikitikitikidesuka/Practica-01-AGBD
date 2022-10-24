@@ -114,6 +114,21 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
     
      Si primero se ponen las claves y se crean sus índices, cada vez que se introduzca un dato se comprueba si cumple las restricciones y dado que ya existe un índice de las claves, se puede hacer mucho más rápidamente que comprobando que la clave es única fila a fila.
      Si se introdujesen los datos primero y luego se insertasen las claves, crear sus índices sería una tarea muchísimo más costosa, como se puede ver por los tiempos obtenidos.
+     
+### Tareas Parte 2
+- [ ] Crear las siguientes consultas:
+    - [ ] Obtener el correo de un cliente a partir de su nombre y sus apellidos. Probar la consulta con "Ángeles del Nido".
+    - [ ] Obtener el número de clientes de una provincia. Probar la consulta con "Lugo".
+    - [ ] Obtener un listado con el nombre, los apellidos y el correo electrónico de los clientes que hayan contactado por un determinado canal en un determinado periodo de tiempo. Probar la consulta con "canal web" y el periodo de "2019".
+    - [ ] Obtener un listado de clientes que contenga el nombre, los apellidos y los juegos que hayan alquilado entre los años 2019 y 2020, así como la fecha de alquiler de cada juego. El listado resultante se desea ordenado por apellidos y que solo contenga clientes de una determinada provincia. Probar la consulta con los clientes de "Madrid".
+    - [ ] Dos consultas que puedan ser de interés para la empresa y con las que se pueda extraer alguna conclusión de interés relativa al uso de índices.
+
+- [ ] Optimizar las consultas anteriores:
+    - [ ] Eliminar las claves primarias y foráneas y obtener los tiempos de ejecución de las consultas.
+    - [ ] Añadir las claves primarias y foráneas y obtener los tiempos de ejecución de las consultas.
+    - [ ] Crear los índices oportunos para optimizar las consultas y obtener los tiempos de ejecución de las consultas según se especifica en la tabla del enunciado.
+    - [ ] Indicar que conjunto de índices final es el más apropiado para la base de datos teniendo en cuenta que las consultas más frecuentes van a ser la 1, 4, 2 y la 3.
+    - [ ] Añadir unas conclusiones sobre el estudio de los 
 
 --- 
 
