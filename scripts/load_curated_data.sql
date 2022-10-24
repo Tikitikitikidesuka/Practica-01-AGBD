@@ -9,7 +9,6 @@ USE PracABD1;
 
 SET GLOBAL local_infile = TRUE;
 
-
 LOAD DATA LOCAL INFILE '/home/miguel/Documents/projects/practica_01_agdb/datos/datos_filtrados/clientes.csv'
 	INTO TABLE clientes
 	CHARACTER SET utf8mb4
