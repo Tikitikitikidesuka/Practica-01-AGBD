@@ -1,0 +1,1 @@
+CALL getEmailPorNombreCompleto('Ángeles', 'del Nido');
