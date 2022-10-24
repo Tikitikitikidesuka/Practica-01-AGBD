@@ -110,9 +110,10 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
         5. Creación de las claves primarias               (creación de índices)     T = 6.6568 s
         6. Creación de las claves foráneas                (creación de índices)     T = 268.76 ms
 
-    Explicación razonada:
-        Si primero se ponen las claves y se crean sus índices, cada vez que se introduzca un dato se comprueba si cumple las restricciones y dado que ya existe un índice de las claves, se puede hacer mucho más rápidamente que comprobando que la clave es única fila a fila.
-        Si se introdujesen los datos primero y luego se insertasen las claves, crear sus índices sería una tarea muchísimo más costosa, como se puede ver por los tiempos obtenidos.
+    **Explicación razonada**:
+    
+     Si primero se ponen las claves y se crean sus índices, cada vez que se introduzca un dato se comprueba si cumple las restricciones y dado que ya existe un índice de las claves, se puede hacer mucho más rápidamente que comprobando que la clave es única fila a fila.
+     Si se introdujesen los datos primero y luego se insertasen las claves, crear sus índices sería una tarea muchísimo más costosa, como se puede ver por los tiempos obtenidos.
 
 --- 
 
