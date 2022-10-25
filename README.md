@@ -116,12 +116,12 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
      Si se introdujesen los datos primero y luego se insertasen las claves, crear sus índices sería una tarea muchísimo más costosa, como se puede ver por los tiempos obtenidos.
      
 ### Tareas Parte 2
-- [ ] Crear las siguientes consultas:
+- [X] Crear las siguientes consultas:
     - [X] Obtener el correo de un cliente a partir de su nombre y sus apellidos. Probar la consulta con "Ángeles del Nido".
     - [X] Obtener el número de clientes de una provincia. Probar la consulta con "Lugo".
     - [X] Obtener un listado con el nombre, los apellidos y el correo electrónico de los clientes que hayan contactado por un determinado canal en un determinado periodo de tiempo. Probar la consulta con "canal web" y el periodo de "2019".
     - [X] Obtener un listado de clientes que contenga el nombre, los apellidos y los juegos que hayan alquilado entre los años 2019 y 2020, así como la fecha de alquiler de cada juego. El listado resultante se desea ordenado por apellidos y que solo contenga clientes de una determinada provincia. Probar la consulta con los clientes de "Madrid".
-    - [ ] Dos consultas que puedan ser de interés para la empresa y con las que se pueda extraer alguna conclusión de interés relativa al uso de índices.
+    - [X] Dos consultas que puedan ser de interés para la empresa y con las que se pueda extraer alguna conclusión de interés relativa al uso de índices.
 
 - [ ] Optimizar las consultas anteriores:
     - [ ] Eliminar las claves primarias y foráneas y obtener los tiempos de ejecución de las consultas.
