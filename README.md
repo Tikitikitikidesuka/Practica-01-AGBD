@@ -124,7 +124,13 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
     - [X] Dos consultas que puedan ser de interés para la empresa y con las que se pueda extraer alguna conclusión de interés relativa al uso de índices.
 
 - [ ] Optimizar las consultas anteriores:
-    - [ ] Eliminar las claves primarias y foráneas y obtener los tiempos de ejecución de las consultas.
+    - [X] Eliminar las claves primarias y foráneas y obtener los tiempos de ejecución de las consultas.
+        1. T = 26.672 ms
+        2. T = 14.731 ms
+        3. T = 23.737 ms
+        4. T = 56.779 ms
+        5. T = 49.494 ms
+        6. T = 75.505 ms
     - [ ] Añadir las claves primarias y foráneas y obtener los tiempos de ejecución de las consultas.
     - [ ] Crear los índices oportunos para optimizar las consultas y obtener los tiempos de ejecución de las consultas según se especifica en la tabla del enunciado.
     - [ ] Indicar que conjunto de índices final es el más apropiado para la base de datos teniendo en cuenta que las consultas más frecuentes van a ser la 1, 4, 2 y la 3.
