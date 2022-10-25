@@ -131,6 +131,13 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
         4. T = 56.779 ms
         5. T = 49.494 ms
         6. T = 75.505 ms
+    - [X] Añadir las claves primarias y obtener los tiempos de ejecución de las consultas.
+        1. T = 43.996 ms
+        2. T = 17.417 ms
+        3. T = 27.835 ms
+        4. T = 42.950 ms
+        5. T = 41.608 ms
+        6. T = 59.037 ms
     - [ ] Añadir las claves primarias y foráneas y obtener los tiempos de ejecución de las consultas.
     - [ ] Crear los índices oportunos para optimizar las consultas y obtener los tiempos de ejecución de las consultas según se especifica en la tabla del enunciado.
     - [ ] Indicar que conjunto de índices final es el más apropiado para la base de datos teniendo en cuenta que las consultas más frecuentes van a ser la 1, 4, 2 y la 3.
