@@ -233,6 +233,14 @@ Para arreglar los juegos con título idéntico pero de diferentes editores, conc
 
 \inputminted{mysql}{\scriptdir limpieza_datos.sql}
 
+Para completar las siguientes secciones del proyecto era necesario poder cargar los datos después de poner las claves primarias y foráneas, cosa que este método de carga y posterior limpieza no permitía. Por suerte, MySQL tiene una sentencia para exportar datos a csv. Aprovechándola, lo exportamos los datos de cada tabla ya filtrados a ficheros que poder cargar más adelante.
+
+Una nota importante sobre este proceso es que por motivos no muy claros, el primer id de cada tabla exportada se cambiaba por un cero. Como solo una fila se veía afectada como máximo, manualmente volvimos a establecer los ids erroneos a sus valores correctos.
+
+Tras todo esto, la carga de los datos podía volver a realizarse facilmente en cualquier momento cargando los ficheros de datos filtrados de la siguiente forma:
+
+\inputminted{mysql}{\scriptdir load_curated_data.sql}
+
 
 \subsection{Scripts de gestión de claves}
 
