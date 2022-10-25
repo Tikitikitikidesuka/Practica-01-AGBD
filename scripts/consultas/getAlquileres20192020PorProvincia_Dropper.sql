@@ -1,0 +1,1 @@
+DROP PROCEDURE getAlquileres20192020PorProvincia;
