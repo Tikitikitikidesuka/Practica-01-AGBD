@@ -145,9 +145,14 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
         4. T = 50.475 ms
         5. T = 34.668 ms
         6. T = 64.328 ms
-    - [ ] Crear los índices oportunos para optimizar las consultas y obtener los tiempos de ejecución de las consultas según se especifica en la tabla del enunciado.
-    - [ ] Indicar que conjunto de índices final es el más apropiado para la base de datos teniendo en cuenta que las consultas más frecuentes van a ser la 1, 4, 2 y la 3.
-    - [ ] Añadir unas conclusiones sobre el estudio de los 
+    - [X] Crear los índices oportunos para optimizar las consultas y obtener los tiempos de ejecución de las consultas según se especifica en la tabla del enunciado.
+        1. Índice Nombre cliente: T = 210.56 ms
+        2. Índice Apellido cliente: T = 178.49 ms
+        3. Índice Título juego. T = 212.67 ms
+        4. Todos los índices: T = 170.73 ms
+    - [X] Indicar que conjunto de índices final es el más apropiado para la base de datos teniendo en cuenta que las consultas más frecuentes van a ser la 1, 4, 2 y la 3.
+        Todos los índices activados producen la mejor velocidad teniendo solo en cuenta las consultas más frecuentes.
+    - [ ] Añadir unas conclusiones sobre el estudio de los índices.
 
 --- 
 
@@ -156,3 +161,4 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
 - [X] Longitud de los títulos de los juegos no caben en 32 carácteres. Ejemplo: "Wagamama Fairy Mirumo de Pon! - Ougon Maracas no Densetsu" -> **Solución**: Aumentar el tamaño de las strings a más de 32 carácteres.
 - [X] Colisiones por títulos repetidos de juegos, a pesar de que tienen editores distintos. Ejemplo: "Super Mario Advance 4 - Super Mario Bros. 3" que aparece cuatro veces con los editores: "Menace", "Independent", "Indecline" y "Trashman" -> **Solución propuesta**: Añadir al final de los títulos de los juegos repetidos el nombre de la compañía.
 - [X] Colisiones por títulos repetidos de juegos que no tienen editores, por lo que no se puede resolver igual que el problema anterior. -> **Solución propuesta**: Ya que las filas son idénticas excepto el id, eliminar los juegos duplicados y actualizar la tabla clientes_juegos para que usen el id de la versión no eliminada.
+- [X] Permiso denegado en XAMPP -> **Solución**: Ir al fichero `C:\xampp\phpMyAdmin\config.inc.php` y actualizar la fila con la ip, para incluir el puerto que se ha configurado en el servidor MySQL.
