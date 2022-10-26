@@ -145,12 +145,14 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
         4. T = 50.475 ms
         5. T = 34.668 ms
         6. T = 64.328 ms
-    - [ ] Crear los índices oportunos para optimizar las consultas y obtener los tiempos de ejecución de las consultas según se especifica en la tabla del enunciado.
+    - [X] Crear los índices oportunos para optimizar las consultas y obtener los tiempos de ejecución de las consultas según se especifica en la tabla del enunciado.
         1. Índice Nombre cliente: T = 210.56 ms
         2. Índice Apellido cliente: T = 178.49 ms
         3. Índice Título juego. T = 212.67 ms
-    - [ ] Indicar que conjunto de índices final es el más apropiado para la base de datos teniendo en cuenta que las consultas más frecuentes van a ser la 1, 4, 2 y la 3.
-    - [ ] Añadir unas conclusiones sobre el estudio de los 
+        4. Todos los índices: T = 170.73 ms
+    - [X] Indicar que conjunto de índices final es el más apropiado para la base de datos teniendo en cuenta que las consultas más frecuentes van a ser la 1, 4, 2 y la 3.
+        Todos los índices activados producen la mejor velocidad teniendo solo en cuenta las consultas más frecuentes.
+    - [ ] Añadir unas conclusiones sobre el estudio de los índices.
 
 --- 
 
