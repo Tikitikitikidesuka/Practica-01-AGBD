@@ -258,17 +258,28 @@ Para eliminarlas si fuese necesario:
 
 
 
-\subsection{Conflicto de claves y datos}
 
-Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
+\subsection{?`Importa el orden de inserción de claves y datos?}
 
+Para resolver la duda de si es más rápido insertar los datos primero y luego añadir las claves, o al revés, realizamos la prueba de forma empírica, que concluyó con los siguientes resultados:
 
+Creándo las claves e insertando después:
 
+\begin{enumerate}
+	\item Creación de las claves primarias: 259.24 ms 
+	\item Creación de las claves foráneas: 178.14 ms
+	\item Inserción de los datos: 2003.8 ms
+\end{enumerate}
 
-\subsection{¿Importa el orden de inserción de claves y datos?}
+Insertando primero y creando las claves después:
 
-Incluir el planteamiento seguido, las sentencias SQL utilizadas, y los resultados obtenidos, así como una descripción de las herramientas (Excel, SGDB, ...) que se hayan utilizado para la resolución.
+\begin{enumerate}
+	\item Inserción de los datos: 1626.4 ms
+	\item Creación de las claves primarias: 6656.8 ms
+	\item Creación de las claves foráneas: 268.76 ms
+\end{enumerate}
 
+Se puede observar que el proceso es muchísimo más lento si se crean las claves tras la inserción de los datos. Con la solución óptima se tarda ligeramente más (377.4 ms en nuestro caso) en cargar los datos que si no se hubiesen creado las claves primero, debido a que se tiene que ir comprobando las restricciones y actualizando los índices a medida que se va insertando. Pero, a cambio, la creación de las claves es muy veloz. Crear las claves una vez se han insertado los datos es un proceso muy costoso
 
 
 	
