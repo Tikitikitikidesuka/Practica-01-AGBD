@@ -156,6 +156,23 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
 
 --- 
 
+### XAMPP y phpMyAdmin
+
+Para conectarse a un servidor MySQL que no sea el que viene con XAMPP (MariaDB) con phpMyAdmin hay que configurar la conexión en el fichero `/Applications/XAMPP/xamppfiles/phpmyadmin/config.inc.php` en OS X y `C:\xampp\phpMyAdmin\config.inc.php` en Windows:
+
+```
+/* Authentication type */
+$cfg['Servers'][$i]['auth_type] = 'config';
+$cfg['Servers'][$i]['user'] = 'root';
+$cfg['Servers'][$i]['password'] = 'keo';
+/* Server parameters */
+$cfg['Servers'][$i]['host'] = 'dirección_ip:puerto'
+``` 
+
+**( ͡° ͜ʖ ͡°) La contraseña está obviamente cambiada ¯\\\_(ツ)\_/¯**
+
+---
+
 ## Problemas
 
 - [X] Longitud de los títulos de los juegos no caben en 32 carácteres. Ejemplo: "Wagamama Fairy Mirumo de Pon! - Ougon Maracas no Densetsu" -> **Solución**: Aumentar el tamaño de las strings a más de 32 carácteres.
