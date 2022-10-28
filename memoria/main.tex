@@ -411,7 +411,7 @@ Para comprobar que todo hasta aquí se había realizado de manera correcta, intr
 
 Para replicar la base de datos MySQL en MariaDB solo hubo que ejecutar de forma ordenada los scripts elaborados durante la primera y segunda parte del proyecto en este orden:
 
-\begin{enumerated}
+\begin{enumerate}
 	\item Creación de los espacios de tabla.
 	\item Creación de las tablas en sus correspondientes espacios.
 	\item Inserción de las claves primarias y foráneas.
@@ -420,14 +420,20 @@ Para replicar la base de datos MySQL en MariaDB solo hubo que ejecutar de forma 
 	\item Inserción de los datos del backup.
 \end{enumerate}
 
-Aunque si hubo un problema: en MariaDB los índices de clave primaria posteriores generados mediante un \inlineminted{mysql}{ALTER TABLE} no sobreescriben los unique anteriores por lo que hubo que eliminarlos a mano para añadir los de clave primaria.
+Aunque si hubo un problema: en MariaDB los índices de clave primaria posteriores generados mediante un \mintinline{mysql}{ALTER TABLE} no sobreescriben los unique anteriores por lo que hubo que eliminarlos a mano para añadir los de clave primaria.
 
 
 
 
 \subsection{Configurar los tamaños de página}
 
+Para configurar el tamaño de página de la base de datos es necesario rehacerla por lo que un backup sería no solo prudente si no necesario.
 
+En el fichero `/etc/mysql/my.cnf` dentro del contendor de MariaDB, es necesario añadir la siguiente linea donde se encuentran las sentencias de \emph{innodb}:\mininline{shell-session}{innodb_page_size = <tamaño_de_página>}. En nuestro caso \mininline{shell-session}{tamaño_de_página} valdrá: \mintinline{shell-session}{4k, 16k y 64k} (Importante la k en minúscula). El buffer ya venía preconfigurado con un tamaño razonable de 246 Mb.
+
+Una vez cambiados los parámetros de \emph{innodb} hay que eliminar la base de datos. Esto se hace borrando todo el contenido en `/var/lib/mysql`.
+
+Realizando las pruebas con los distintos tamaños de página quedan los siguientes resultados:
 
 
 
