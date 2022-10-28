@@ -377,25 +377,27 @@ El contenido de dichas lineas debe ser el que coincida con las credenciales de l
 
 \subsection{Arreglar MariaDB de XAMPP}
 
-En Mac OS X la base de datos MariaDB que venía con XAMPP daba muchos fallos hasta que encontramos uno que ya no fuimos capaces de solucionar en un tiempo razonable. Como ya sabíamos usar Docker, creamos un contenedor de MariaDB para solucionar la situación:
+En Mac OS X la base de datos MariaDB que venía con XAMPP daba muchos fallos. Intentamos arreglarlos hasta que encontramos uno que no fuimos capaces de solucionar en un tiempo razonable. Como ya sabíamos usar Docker, creamos un contenedor de MariaDB para solucionar la situación:
 
 \begin{minted}{bash}
 docker run --name <NOMBRE_DEL_CONTENDOR>\
 -p <PUERTO_REAL>:<PUERTO_VIRTUAL>\
 -e MYSQL_ROOT_PASSWORD=<CONTRASEÑA_DEL_USUARIO_ROOT>\
--d mysql:<VERSION_DE_MYSQL>
+-d mariadb:<VERSION_DE_MARIADB>
 \end{minted}
 
 En nuestro caso en particular:
 
 \begin{minted}{bash}
-docker run --name mysql\
--p 3306:3306\
+docker run --name mariadb\
+-p 3309:3306\
 -e MYSQL_ROOT_PASSWORD=Keo\
--d mysql:latest
+-d mariadb:10.4
 \end{minted}
 
 La contraseña está cambiada.
+
+Se puede apreciar que en este contenedor mapeamos el puerto 3306 del entorno virtual al puerto 3309 de la máquina, de forma que no hace falta cambiar el puerto del servidor internamente para que use un puerto diferente al del servidor MySQL anterior.
 
 
 
