@@ -204,3 +204,4 @@ $cfg['Servers'][$i]['host'] = 'dirección_ip:puerto'
 - [X] No deja iniciar el MySQL del phpMyAdmin tras cambiar los tamaños de página y expandir el tamaño de la base de datos -> **Solución**: Ir a la carpeta `C:\xampp\mysql\data` y eliminar todos los archivos menos el directorio mysql y el fichero my.ini.
 - [X] Volver a realizar el backup de la base de datos (datos filtrados e índices implementados).
 - [ ] Cambiar las rutas de los scripts para que sean genéricas y quepan en la memoria.
+- [ ] Arreglar colores de las direcciones de Windows.
