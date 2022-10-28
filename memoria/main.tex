@@ -143,11 +143,11 @@
 
 Como primer paso, creamos los scripts \emph{creator.sql} y \emph{dropper.sql}, encargados respectivamente de crear y eliminar el esquema de la base de datos \emph{PracABD1}.\\
 
-Para crear el esquema, utilizamos la sentencia \mintinline{mysql}{CREATE SCHEMA PracABD1}. Tras esa, siguen otras dos que lo configuran para permitir el uso de carácteres internacionales: \mintinline{mysql}{DEFAULT CHARATTER SET utf8mb4} y \mintinline{mysql}{COLLATE utf8mb4_unicode_ci}. Esto permitirá que la base de datos almacene vocales con tildes y la `ñ', presentes en el juego de datos.\\
+Para crear el esquema, utilizamos la sentencia \mintinline{mysql}{CREATE SCHEMA PracABD1}. Tras esa, siguen otras dos que lo configuran para que permita el uso de carácteres internacionales: \mintinline{mysql}{DEFAULT CHARATTER SET utf8mb4} y \mintinline{mysql}{COLLATE utf8mb4_unicode_ci}. Esto hará que la base de datos pueda almacenar las vocales con tildes y las eñes presentes en el juego de datos.\\
 
 \inputminted{mysql}{\scriptdir creator.sql}
 
-Eliminar el esquema se realiza através de la sentencia \mintinline{mysql}{DROP SCHEMA PracABD1}.\\
+Eliminar el esquema se realiza a través de la sentencia \mintinline{mysql}{DROP SCHEMA PracABD1}.\\
 
 \inputminted{mysql}{\scriptdir dropper.sql}
 
@@ -162,7 +162,7 @@ A cada tabla le corresponde un espacio, que se crea mediante el siguiente script
 
 Como se puede ver, cada espacio de tabla tiene su propio fichero asignado.
 
-La eliminación de los espacios creados se realiza através de un script igual de sencillo:
+La eliminación de los espacios creados se realiza a través de un script igual de sencillo:
 
 \inputminted{mysql}{\scriptdir drop_physical.sql}
 
@@ -204,7 +204,7 @@ SET GLOBAL local_infile = TRUE;
 SET GLOBAL local_infile = FALSE;
 \end{minted}
 
-Aun con este cambio es posible que salte este otro error: \emph{Error Code: 2068. LOAD DATA LOCAL INFILE file request rejected due to restrictions on access}. Este en particular es debido a las propiedades de la conexión con la base de datos. Para solucionarlo se pueden editar dichas propiedades en el panel de conexiones de \textbf{MySQL Workbench}, herramienta através de la que trabábamos con nuestra base de datos:
+Aun con este cambio es posible que salte este otro error: \emph{Error Code: 2068. LOAD DATA LOCAL INFILE file request rejected due to restrictions on access}. Este en particular es debido a las propiedades de la conexión con la base de datos. Para solucionarlo se pueden editar dichas propiedades en el panel de conexiones de \textbf{MySQL Workbench}, herramienta a través de la que trabábamos con nuestra base de datos:
 
 \begin{enumerate}
 	\item En la pagina de conexiones de MySQL Workbench se presiona click derecho sobre la conexión que se desea editar y se selecciona la opción "\textbf{Edit connection...}".
