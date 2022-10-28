@@ -15,6 +15,7 @@
 \usepackage{graphicx} % Para incluir imágenes
 \usepackage{xcolor} % Para poner colores 
 \usepackage{minted} % Para poner código
+\usepackage{float} % Para fijar las tablas
 
 \tolerance=9999			% Permite espacios en blanco grandes entre palabras
 \emergencystretch=10pt		% Permite un poco de flexibilidad en la longitud de linea
@@ -279,7 +280,7 @@ Insertando primero y creando las claves después:
 	\item Creación de las claves foráneas: 268.76 ms
 \end{enumerate}
 
-Se puede observar que el proceso es muchísimo más lento si se crean las claves tras la inserción de los datos. Con la solución óptima se tarda ligeramente más (377.4 ms en nuestro caso) en cargar los datos que si no se hubiesen creado las claves primero, debido a que se tiene que ir comprobando las restricciones y actualizando los índices a medida que se va insertando. Pero, a cambio, la creación de las claves es muy veloz. Crear las claves una vez se han insertado los datos es un proceso muy costoso
+Se puede observar que el proceso es muchísimo más lento si se crean las claves tras la inserción de los datos. Con la solución óptima se tarda ligeramente más (377.4 ms en nuestro caso) en cargar los datos que si no se hubiesen creado las claves primero, debido a que se tiene que ir comprobando las restricciones y actualizando los índices a medida que se va insertando. Pero, a cambio, la creación de las claves es muy veloz. Crear las claves una vez se han insertado los datos es un proceso muy costoso comparado con ir actualizando los índices a medida que se inserta.
 
 
 	
@@ -291,8 +292,38 @@ Se puede observar que el proceso es muchísimo más lento si se crean las claves
 
 \section{Parte 2}
 
-Texto parte 2 xd... 32
-	
+\subsection{Consultas más frecuentes}
+
+Lo primero que hicimos para optimizar las consultas más frecuentes es programarlas, para poder comparar más adelante las diferencias de velocidad:
+
+\inputminted{mysql}{\scriptdir consultas/procedures.sql}
+
+\subsection{Optimización mediante índices}
+
+Una vez programadas, nos pusimos a optimizar.
+
+Los tres índices aparte de los de las claves que impusimos son uno para los nombres, los apellidos y los títulos de los juegos, que por su aparición en las consultas parecían los que más optimización puede aportar. Los tiempos con distintos índices quedan representados en la siguiente tabla:
+
+\begin{table}[H]
+\begin{tabular}{|c|c|c|l|l|l|}
+\hline
+Clave Primaria         & Clave Foránea         & Indice 1              & \multicolumn{1}{c|}{Indice 2} & \multicolumn{1}{c|}{Indice 3} & \multicolumn{1}{c|}{Tiempo}    \\ \hline
+\multicolumn{1}{|l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &                               &                               & 246.92 ms                      \\ \hline
+X                      & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &                               &                               & 232.84 ms                      \\ \hline
+X                      & X                     & \multicolumn{1}{l|}{} &                               &                               & 213.06 ms                      \\ \hline
+X                      & X                     & X                     &                               &                               & 210.56 ms                      \\ \hline
+X                      & X                     &                       & \multicolumn{1}{c|}{X}        & \multicolumn{1}{c|}{}         & \multicolumn{1}{c|}{178.49 ms} \\ \hline
+X                      & X                     &                       & \multicolumn{1}{c|}{}         & \multicolumn{1}{c|}{X}        & \multicolumn{1}{c|}{212.67 ms} \\ \hline
+X                      & X                     & X                     & \multicolumn{1}{c|}{X}        & \multicolumn{1}{c|}{X}        & \multicolumn{1}{c|}{170.73 ms} \\ \hline
+\end{tabular}
+\end{table}
+
+La especificación de los índices mencionada se realiza con este código:
+
+\inputminted{mysql}{\scriptdir consultas/setIndices.sql}
+
+Las mejoras de todos ellos son lo suficientemente buenas como para permanecer en la base de datos a pesar de que los tiempos de inserción se vean ligeramente afectados.
+
 \newpage
 
 %------------------------------------------------
@@ -301,7 +332,101 @@ Texto parte 2 xd... 32
 
 \section{Parte 3}
 
-Texto parte 3 xd...
+\subsection{Cómo creamos la base de datos MySQL}
+
+La base de datos con la que se ha estado tratando hasta este punto era una MySQL en un contenedor de Docker. Para la replicación de este proyecto se puede crear de la siguiente forma:
+
+\begin{minted}{shell-session}
+docker run --name <NOMBRE_DEL_CONTENDOR>\
+-p <PUERTO_REAL>:<PUERTO_VIRTUAL>\
+-e MYSQL_ROOT_PASSWORD=<CONTRASEÑA_DEL_USUARIO_ROOT>\
+-d mysql:<VERSION_DE_MYSQL>
+\end{minted}
+
+En nuestro caso en particular:
+
+\begin{minted}{shell-session}
+docker run --name mysql\
+-p 3306:3306\
+-e MYSQL_ROOT_PASSWORD=Keo\
+-d mysql:latest
+\end{minted}
+
+La contraseña está cambiada.
+
+
+
+
+\subsection{Acceso a MySQL desde phpMyAdmin}
+
+Para acceder a la base de datos MySQL con phpMyAdmin es necesario configurar las siguientes lineas en el fichero \mintinline{shell-session}{Applications/XAMPP/xamppfiles/phpmyadmin/config.inc.php} en OS X o \mintinline{shell-session}{C:\xampp\phpMyAdmin\config.inc.php} en Windows:
+
+\begin{minted}{php}
+/* Authentication type */
+$cfg['Servers'][$i]['auth_type] = 'config';
+$cfg['Servers'][$i]['user'] = 'root';
+$cfg['Servers'][$i]['password'] = 'contraseña';
+/* Server parameters */
+$cfg['Servers'][$i]['host'] = 'dirección_ip:puerto'
+\end{minted}
+
+El contenido de dichas lineas debe ser el que coincida con las credenciales de la base de datos a la que se desea acceder.
+
+
+
+
+\subsection{Arreglar MariaDB de XAMPP}
+
+En Mac OS X la base de datos MariaDB que venía con XAMPP daba muchos fallos hasta que encontramos uno que ya no fuimos capaces de solucionar en un tiempo razonable. Como ya sabíamos usar Docker, creamos un contenedor de MariaDB para solucionar la situación:
+
+\begin{minted}{shell-session}
+docker run --name <NOMBRE_DEL_CONTENDOR>\
+-p <PUERTO_REAL>:<PUERTO_VIRTUAL>\
+-e MYSQL_ROOT_PASSWORD=<CONTRASEÑA_DEL_USUARIO_ROOT>\
+-d mysql:<VERSION_DE_MYSQL>
+\end{minted}
+
+En nuestro caso en particular:
+
+\begin{minted}{shell-session}
+docker run --name mysql\
+-p 3306:3306\
+-e MYSQL_ROOT_PASSWORD=Keo\
+-d mysql:latest
+\end{minted}
+
+La contraseña está cambiada.
+
+
+
+
+\subsection{Comprobar el funcionamiento de los clientes y las bases de datos}
+
+Para comprobar que todo hasta aquí se había realizado de manera correcta, introdujimos un cliente falso en la tabla de clientes de MySQL desde phpMyAdmin, comprobamos su inserción desde MySQL Workbench y lo eliminamos para no dejar datos contaminados. De igual forma, creamos una tabla de prueba en la base de datos MariaDB, introdujimos una fila de prueba y comprobamos su inserción desde phpMyAdmin.
+
+
+
+
+\subsection{Insertar los datos de MySQL a MariaDB}
+
+Insertar los datos en MariaDB fue tarea sencilla, solo hubo que ejecutar de forma ordenada los scripts elaborados durante la primera y segunda parte del proyecto en este orden:
+
+\begin{enumerated}
+	\item Creación de los espacios de tabla.
+	\item Creación de las tablas en sus correspondientes espacios.
+	\item Inserción de las claves primarias y foráneas.
+	\item Inserción de los índices.
+	\item Inserción de los procedimientos más frecuentes.
+	\item Inserción de los datos del backup.
+\end{enumerate}
+
+
+
+
+\subsection{Configurar los tamaños de página}
+
+
+
 
 \newpage
 
