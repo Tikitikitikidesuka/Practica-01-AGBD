@@ -151,7 +151,7 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
     - [X] Obtener un listado de clientes que contenga el nombre, los apellidos y los juegos que hayan alquilado entre los años 2019 y 2020, así como la fecha de alquiler de cada juego. El listado resultante se desea ordenado por apellidos y que solo contenga clientes de una determinada provincia. Probar la consulta con los clientes de "Madrid".
     - [X] Dos consultas que puedan ser de interés para la empresa y con las que se pueda extraer alguna conclusión de interés relativa al uso de índices.
 
-- [ ] Optimizar las consultas anteriores:
+- [X] Optimizar las consultas anteriores:
     - [X] Eliminar las claves primarias y foráneas y obtener los tiempos de ejecución de las consultas.         T = 246.918 ms
         1. T = 26.672 ms
         2. T = 14.731 ms
