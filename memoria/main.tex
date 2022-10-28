@@ -435,7 +435,15 @@ Una vez cambiados los parámetros de \emph{innodb} hay que eliminar la base de d
 
 Realizando las pruebas con los distintos tamaños de página quedan los siguientes resultados:
 
-
+\begin{table}[]
+\begin{tabular}{lll}
+\hline
+\multicolumn{1}{|c|}{Tamaño Página} & \multicolumn{1}{c|}{Espacio Base de Datos} & \multicolumn{1}{c|}{Tiempo de Consultas} \\ \hline
+4 KB                                & 28.8 MB                                    & 251.0 ms                                 \\
+16 KB                               & 26.8 MB                                    & 235.7 ms                                 \\
+64 KB                               & 30.5 MB                                    & 216.8 ms                                
+\end{tabular}
+\end{table}
 
 \newpage
 
