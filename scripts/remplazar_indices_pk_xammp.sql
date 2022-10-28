@@ -1,2 +1,2 @@
-DROP INDEX JuegosID ON juegos;
-DROP INDEX ClientesID ON clientes;
+DROP INDEX JuegoID ON juegos;
+DROP INDEX ClienteID ON clientes;
