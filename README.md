@@ -202,4 +202,5 @@ $cfg['Servers'][$i]['host'] = 'dirección_ip:puerto'
 - [X] Colisiones por títulos repetidos de juegos que no tienen editores, por lo que no se puede resolver igual que el problema anterior. -> **Solución propuesta**: Ya que las filas son idénticas excepto el id, eliminar los juegos duplicados y actualizar la tabla clientes_juegos para que usen el id de la versión no eliminada.
 - [X] Permiso denegado en XAMPP -> **Solución**: Ir al fichero `C:\xampp\phpMyAdmin\config.inc.php` y actualizar la fila con la ip, para incluir el puerto que se ha configurado en el servidor MySQL.
 - [X] No deja iniciar el MySQL del phpMyAdmin tras cambiar los tamaños de página y expandir el tamaño de la base de datos -> **Solución**: Ir a la carpeta `C:\xampp\mysql\data` y eliminar todos los archivos menos el directorio mysql y el fichero my.ini.
-- [ ] Volver a realizar el backup de la base de datos (datos filtrados e índices implementados).
+- [X] Volver a realizar el backup de la base de datos (datos filtrados e índices implementados).
+- [ ] Cambiar las rutas de los scripts para que sean genéricas y quepan en la memoria.
