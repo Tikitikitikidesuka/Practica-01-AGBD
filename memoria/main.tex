@@ -139,7 +139,7 @@
 
 
 
-\subsection{Scripts de gestion de la base de datos}
+\subsection{Scripts de gestión de la base de datos}
 
 Como primer paso, creamos los scripts \emph{creator.sql} y \emph{dropper.sql}, encargados respectivamente de crear y eliminar el esquema de la base de datos \emph{PracABD1}.\\
 
@@ -216,7 +216,7 @@ A continuación se muestra una imagen de como debería quedar la ventana de cone
 
 \includegraphics[width=\textwidth]{\imagedir ventana_conexion_mysql_workbench.png}
 
-Con estos dos arreglos ya por fín pudimos cargar los datos a la base de datos, pero resultó que esos dos problemas eran solo el principio. El juego de datos tenía múltiples problemas que se debían solucionar para poder insertar claves a las tablas:
+Con estos dos arreglos ya por fin pudimos cargar los datos a la base de datos, pero resultó que esos dos problemas eran solo el principio. El juego de datos tenía múltiples problemas que se debían solucionar para poder insertar claves a las tablas:
 
 \begin{enumerate}
 	\item En los datos de \emph{Clientes\_Juegos} había un par de juegos que no existían: el 12000 y el 15000.
@@ -242,6 +242,7 @@ Tras todo esto, la carga de los datos podía volver a realizarse facilmente en c
 
 \inputminted{mysql}{\scriptdir load_curated_data.sql}
 
+Cerca del final del proyecto, descubrimos una funcionalidad de MySQL Workbench que produce un backup exclusivamente de los datos de las tablas, sin guardar la estructura de la base de datos que importa de forma mucho más veloz que con el \emph{csv}.
 
 \subsection{Scripts de gestión de claves}
 
@@ -298,6 +299,8 @@ Lo primero que hicimos para optimizar las consultas más frecuentes es programar
 
 \inputminted{mysql}{\scriptdir consultas/procedures.sql}
 
+Las consultas, ya que son las más frecuentes, fueron registradas como procedimientos para facilitar su llamada más adelante.
+
 \subsection{Optimización mediante índices}
 
 Una vez programadas, nos pusimos a optimizar.
@@ -305,9 +308,10 @@ Una vez programadas, nos pusimos a optimizar.
 Los tres índices aparte de los de las claves que impusimos son uno para los nombres, los apellidos y los títulos de los juegos, que por su aparición en las consultas parecían los que más optimización puede aportar. Los tiempos con distintos índices quedan representados en la siguiente tabla:
 
 \begin{table}[H]
+\centering
 \begin{tabular}{|c|c|c|l|l|l|}
 \hline
-Clave Primaria         & Clave Foránea         & Indice 1              & \multicolumn{1}{c|}{Indice 2} & \multicolumn{1}{c|}{Indice 3} & \multicolumn{1}{c|}{Tiempo}    \\ \hline
+Primary Key            & Foreign Key           & Índice 1              & \multicolumn{1}{c|}{Índice 2} & \multicolumn{1}{c|}{Índice 3} & \multicolumn{1}{c|}{Tiempo}    \\ \hline
 \multicolumn{1}{|l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &                               &                               & 246.92 ms                      \\ \hline
 X                      & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &                               &                               & 232.84 ms                      \\ \hline
 X                      & X                     & \multicolumn{1}{l|}{} &                               &                               & 213.06 ms                      \\ \hline
@@ -359,7 +363,7 @@ La contraseña está cambiada.
 
 \subsection{Acceso a MySQL desde phpMyAdmin}
 
-Para acceder a la base de datos MySQL con phpMyAdmin es necesario configurar las siguientes lineas en el fichero \mintinline{bash}{Applications/XAMPP/xamppfiles/phpmyadmin/config.inc.php} en OS X o \mintinline{bash}{C:\xampp\phpMyAdmin\config.inc.php} en Windows:
+Para acceder a la base de datos MySQL con phpMyAdmin es necesario configurar las siguientes lineas en el fichero \mintinline{bash}{Applications/XAMPP/xamppfiles/phpmyadmin/config.inc.php} en OS X o \mintinline{bash}{C:/xampp/phpMyAdmin/config.inc.php} en Windows:
 
 \begin{minted}{php}
 /* Authentication type */
@@ -402,7 +406,7 @@ Se puede apreciar que en este contenedor mapeamos el puerto 3306 del entorno vir
 
 
 
-\subsection{Comprobar el funcionamiento de los clientes y las bases de datos}
+\subsection{Comprobar el funcionamiento del entorno}
 
 Para comprobar que todo hasta aquí se había realizado de manera correcta, introdujimos un cliente falso en la tabla de clientes de MySQL desde phpMyAdmin, comprobamos su inserción desde MySQL Workbench y lo eliminamos para no dejar datos contaminados. De igual forma, creamos una tabla de prueba en la base de datos MariaDB, introdujimos una fila de prueba y comprobamos su inserción desde phpMyAdmin.
 
@@ -422,7 +426,9 @@ Para replicar la base de datos MySQL en MariaDB solo hubo que ejecutar de forma 
 	\item Inserción de los datos del backup.
 \end{enumerate}
 
-Aunque si hubo un problema: en MariaDB los índices de clave primaria posteriores generados mediante un \mintinline{mysql}{ALTER TABLE} no sobreescriben los unique anteriores por lo que hubo que eliminarlos a mano para añadir los de clave primaria.
+Aunque si hubo un problema: en MariaDB los índices de clave primaria posteriores a la creación de las tablas generados mediante un \mintinline{mysql}{ALTER TABLE} no sobreescriben los unique anteriores, por lo que hubo que eliminarlos a mano para añadir los de clave primaria:
+
+\inputminted{mysql}{\scriptdir remplazar_indices_pk_xammp.sql}
 
 
 
@@ -431,13 +437,14 @@ Aunque si hubo un problema: en MariaDB los índices de clave primaria posteriore
 
 Para configurar el tamaño de página de la base de datos es necesario rehacerla por lo que un backup sería no solo prudente si no necesario.
 
-En el fichero \mintinline{bash}{/etc/mysql/my.cnf} dentro del contendor de MariaDB, es necesario añadir la siguiente linea donde se encuentran las sentencias de \emph{innodb} : \mintinline{bash}{innodb_page_size = <tamaño_de_página>}. En nuestro caso \mintinline{bash}{tamaño_de_página} valdrá: \mintinline{bash}{4k, 16k y 64k} (Importante la k en minúscula). El buffer ya venía preconfigurado con un tamaño razonable de 246 Mb.
+En el fichero \mintinline{bash}{/etc/mysql/my.cnf} dentro del contendor de MariaDB, es necesario añadir la siguiente linea donde se encuentran las sentencias de \emph{innodb}: \mintinline{bash}{innodb_page_size = <tamaño_de_página>}. En nuestro caso \mintinline{bash}{tamaño_de_página} valdrá: \mintinline{bash}{4k, 16k y 64k}. El buffer ya venía preconfigurado con un tamaño razonable de 246 Mb.
 
-Una vez cambiados los parámetros de \emph{innodb} hay que eliminar la base de datos. Esto se hace borrando todo el contenido en `/var/lib/mysql`.
+Una vez cambiados los parámetros de \emph{innodb} hay que eliminar la base de datos. Esto se hace borrando todo el contenido en \mintinline{bash}{/var/lib/mysql}.
 
 Realizando las pruebas con los distintos tamaños de página quedan los siguientes resultados:
 
 \begin{table}[H]
+\centering
 \begin{tabular}{|l|l|l|}
 \hline
 \multicolumn{1}{|c|}{Tamaño Página} & \multicolumn{1}{c|}{Espacio Base de Datos} & \multicolumn{1}{c|}{Tiempo de Consultas} \\ \hline
@@ -447,15 +454,15 @@ Realizando las pruebas con los distintos tamaños de página quedan los siguient
 \end{tabular}
 \end{table}
 
-Al ser consultas que afectan a todas las filas de la tabla, cuanto mayor es la página más rápida es la consulta. Esto es porque se cargan menos páginas cuanto más grandes son.
+Al ser consultas que afectan a todas las filas de la tabla, cuanto mayor es la página, más rápida es la consulta. Esto es porque se cargan menos páginas cuanto más grandes son.
 
 \newpage
 
 %------------------------------------------------
-%	Conclusiones
+%	Conclusión
 %------------------------------------------------
 
-\section{Conclusiones}
+\section{Conclusión}
 
 Durante esta práctica, no solo hemos aprendido sobre administración y gestión de bases de datos, si no que también hemos desarrollado habilidades de resolución de problemas externos, como la instalación de los servidores y clientes, que fueron un poco problemáticos.
 
