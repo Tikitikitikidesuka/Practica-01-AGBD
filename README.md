@@ -43,7 +43,7 @@ En nuestro caso en particular se ejecuta:
 docker run --name mariadb\
     -p 3309:3306\
     -e MYSQL_ROOT_PASSWORD=Keo\
-    -d mariadb:latest
+    -d mariadb:10.4
 ```
 
 **( ͡° ͜ʖ ͡°) La contraseña está obviamente cambiada ¯\\\_(ツ)\_/¯**
