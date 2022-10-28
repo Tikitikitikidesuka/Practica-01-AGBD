@@ -2,6 +2,12 @@
 
 Repositorio de la primera práctica de la asignatura de administración y gestión de bases de datos.
 
+Para compilar la memoria:
+
+```sh
+pdflatex --shell-escape memoria/main.tex
+```
+
 ---
 
 ## Creación del servidor MySQL
@@ -145,7 +151,7 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
     - [X] Obtener un listado de clientes que contenga el nombre, los apellidos y los juegos que hayan alquilado entre los años 2019 y 2020, así como la fecha de alquiler de cada juego. El listado resultante se desea ordenado por apellidos y que solo contenga clientes de una determinada provincia. Probar la consulta con los clientes de "Madrid".
     - [X] Dos consultas que puedan ser de interés para la empresa y con las que se pueda extraer alguna conclusión de interés relativa al uso de índices.
 
-- [ ] Optimizar las consultas anteriores:
+- [X] Optimizar las consultas anteriores:
     - [X] Eliminar las claves primarias y foráneas y obtener los tiempos de ejecución de las consultas.         T = 246.918 ms
         1. T = 26.672 ms
         2. T = 14.731 ms
@@ -174,7 +180,7 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
         4. Todos los índices: T = 170.73 ms
     - [X] Indicar que conjunto de índices final es el más apropiado para la base de datos teniendo en cuenta que las consultas más frecuentes van a ser la 1, 4, 2 y la 3.
         Todos los índices activados producen la mejor velocidad teniendo solo en cuenta las consultas más frecuentes.
-    - [ ] Añadir unas conclusiones sobre el estudio de los índices.
+    - [X] Añadir unas conclusiones sobre el estudio de los índices.
 
 --- 
 
@@ -202,6 +208,11 @@ $cfg['Servers'][$i]['host'] = 'dirección_ip:puerto'
 - [X] Colisiones por títulos repetidos de juegos que no tienen editores, por lo que no se puede resolver igual que el problema anterior. -> **Solución propuesta**: Ya que las filas son idénticas excepto el id, eliminar los juegos duplicados y actualizar la tabla clientes_juegos para que usen el id de la versión no eliminada.
 - [X] Permiso denegado en XAMPP -> **Solución**: Ir al fichero `C:\xampp\phpMyAdmin\config.inc.php` y actualizar la fila con la ip, para incluir el puerto que se ha configurado en el servidor MySQL.
 - [X] No deja iniciar el MySQL del phpMyAdmin tras cambiar los tamaños de página y expandir el tamaño de la base de datos -> **Solución**: Ir a la carpeta `C:\xampp\mysql\data` y eliminar todos los archivos menos el directorio mysql y el fichero my.ini.
+
+---
+
+## Tareas extra
+
 - [X] Volver a realizar el backup de la base de datos (datos filtrados e índices implementados).
-- [ ] Cambiar las rutas de los scripts para que sean genéricas y quepan en la memoria.
-- [ ] Arreglar colores de las direcciones de Windows.
+- [X] Cambiar las rutas de los scripts para que sean genéricas y quepan en la memoria.
+- [X] Arreglar colores de las direcciones de Windows.
