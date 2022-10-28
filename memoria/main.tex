@@ -409,7 +409,7 @@ Para comprobar que todo hasta aquí se había realizado de manera correcta, intr
 
 \subsection{Insertar los datos de MySQL a MariaDB}
 
-Insertar los datos en MariaDB fue tarea sencilla, solo hubo que ejecutar de forma ordenada los scripts elaborados durante la primera y segunda parte del proyecto en este orden:
+Para replicar la base de datos MySQL en MariaDB solo hubo que ejecutar de forma ordenada los scripts elaborados durante la primera y segunda parte del proyecto en este orden:
 
 \begin{enumerated}
 	\item Creación de los espacios de tabla.
@@ -420,10 +420,13 @@ Insertar los datos en MariaDB fue tarea sencilla, solo hubo que ejecutar de form
 	\item Inserción de los datos del backup.
 \end{enumerate}
 
+Aunque si hubo un problema: en MariaDB los índices de clave primaria posteriores generados mediante un \inlineminted{mysql}{ALTER TABLE} no sobreescriben los unique anteriores por lo que hubo que eliminarlos a mano para añadir los de clave primaria.
+
 
 
 
 \subsection{Configurar los tamaños de página}
+
 
 
 
