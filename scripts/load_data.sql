@@ -1,12 +1,3 @@
-USE PracABD1;
-
-/**
- * Esta operación no funciona de serie
- *
- * En el tab de 'Conexión' de MySQL Workbench ve a 'Avanzado' y en el hueco de 'Otros' introduce:
- * 	 OPT_LOCAL_INFILE=1
- */
-
 SET GLOBAL local_infile = TRUE;
 
 

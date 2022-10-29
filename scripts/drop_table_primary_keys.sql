@@ -1,5 +1,3 @@
-USE PracABD1;
-
 ALTER TABLE clientes
 DROP PRIMARY KEY;
 

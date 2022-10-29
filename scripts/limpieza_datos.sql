@@ -1,5 +1,3 @@
-USE PracABD1;
-
 SET sql_safe_updates = FALSE;
 
 

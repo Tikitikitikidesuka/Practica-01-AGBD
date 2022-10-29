@@ -1,5 +1,3 @@
-USE PracABD1;
-
 ALTER TABLE clientes
 ADD PRIMARY KEY (ClienteID);
 
