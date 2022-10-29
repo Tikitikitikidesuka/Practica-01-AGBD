@@ -171,7 +171,7 @@ La eliminación de los espacios creados se realiza a través de un script igual 
 
 \subsection{Scripts de gestión de las tablas}
 
-Inicalmente, las tablas se establecieron como se indicaba en el anexo, pero debido a un problema durante la carga de datos, hubo que modificar el número de carácteres de los títulos de los juegos a un número mayor que 32.
+Inicalmente, las tablas se establecieron como se indicaba en el anexo, pero debido a un problema durante la carga de datos, hubo que modificar el número de carácteres de los títulos de los juegos a un número mayor que 32 y comentar el \mintinline{mysql}{UNIQUE} de los títulos de los juegos. En la sección de carga de datos se explican estos errores y sus soluciones con más detalle.
 
 \inputminted{mysql}{\scriptdir set_tables.sql}
 
@@ -188,7 +188,7 @@ Hasta este punto del desarrollo no surgieron muchos problemas, es a partir de la
 
 MySQL ofrece dos sentencias muy cómodas para cargar datos de ficheros: \mintinline{mysql}{LOAD DATA LOCAL INFILE} y \mintinline{mysql}{LOAD XML LOCAL INFILE} para \emph{csv} y \emph{xml} respectivamente.
 
-Ambas sentencias requieren que se especifique que datos del fichero corresponden a cuales de la tabla, permitiendo además que se realizen algunas operaciones sobre ellos antes de introducirlos. Las únicas transformaciones de datos necesarias fueron el cambio de formato de las fechas y el cambio de ids de los juegos. Un pequeño ejemplo de uso:
+Ambas sentencias requieren que se especifique que datos del fichero corresponden a cuales de la tabla, permitiendo además que se realizen algunas operaciones sobre ellos antes de introducirlos. Las únicas transformaciones de datos necesarias fueron el cambio de formato de las fechas y el cambio de ids de los juegos.
 
 El script de carga resultante parecía prometedor, pero saltaba el siguiente error al ejecutarlo: \emph{Error Code: 3948. Loading local data is disabled; this must be enabled on both the client and server sides}. La solución a este problema es cambiar el valor de la variable \mintinline{mysql}{local_infile} a \mintinline{mysql}{TRUE}. Esto permite la carga de datos desde ficheros, que por defecto está desactivada por motivos de seguridad. Es importante que tras la carga de los datos se vuelva a poner el valor de la variable a \mintinline{mysql}{FALSE}, para evitar posibles riesgos en el futuro:
 
@@ -204,12 +204,12 @@ SET GLOBAL local_infile = TRUE;
 SET GLOBAL local_infile = FALSE;
 \end{minted}
 
-Aun con este cambio es posible que salte este otro error: \emph{Error Code: 2068. LOAD DATA LOCAL INFILE file request rejected due to restrictions on access}. Este en particular es debido a las propiedades de la conexión con la base de datos. Para solucionarlo se pueden editar dichas propiedades en el panel de conexiones de \textbf{MySQL Workbench}, herramienta a través de la que trabábamos con nuestra base de datos:
+Aun con este cambio es posible que salte este otro error: \emph{Error Code: 2068. LOAD DATA LOCAL INFILE file request rejected due to restrictions on access}. Este en particular es debido a las propiedades de la conexión con la base de datos. Para solucionarlo se pueden editar dichas propiedades en el panel de conexiones de \textbf{MySQL Workbench}, herramienta a través de la cual trabajabamos con nuestra base de datos:
 
 \begin{enumerate}
 	\item En la pagina de conexiones de MySQL Workbench se presiona click derecho sobre la conexión que se desea editar y se selecciona la opción "\textbf{Edit connection...}".
 	\item Dentro de la ventana que se abre, \textbf{Manage Server Connections}, se pincha en la pestaña \textbf{Advanced}.
-	\item En el cuadro de texto Others de la pestaña Advanced se introduce la siguiente linea al final: \mintinline{text}{OPT_LOCAL_INFILE=1}.
+	\item En el cuadro de texto \textbf{Others} de la pestaña Advanced se introduce la siguiente linea al final: \mintinline{text}{OPT_LOCAL_INFILE=1}.
 \end{enumerate}
 
 A continuación se muestra una imagen de como debería quedar la ventana de conexiones:
@@ -230,23 +230,23 @@ Con estos dos arreglos ya por fin pudimos cargar los datos a la base de datos, p
 
 La solución al primer problema fue eliminar las filas que referenciaban juegos inexistentes. La solución al segundo no fue ni de cerca tan sencilla.
 
-Para arreglar los juegos con título idéntico pero de diferentes editores, concatenamos el título con el editor de forma que los títulos se volviesen únicos entre ellos. Para arreglar el segundo caso, los juegos duplicados debían ser eliminados de forma que solo quedase una fila y un id por cada título. El problema es que antes de eliminar los dúplicados era necesario visitar la tabla de cruce entre los clientes y los juegos y cambiar todos los ids de juegos que serían eliminados por el id del juego que sobrevive. Esto se logró con el siguiente script:
+Para arreglar los juegos con título idéntico pero de diferentes editores, concatenamos el título con el editor de forma que los títulos se volviesen únicos entre ellos. Para arreglar el segundo caso, los juegos duplicados debían ser eliminados de forma que solo quedase una fila y un id por cada título. El problema es que antes de eliminar los dúplicados era necesario visitar la tabla de cruce entre los clientes y los juegos y cambiar todos los ids de juegos que serían eliminados por el id del juego que sobreviviría. Esto se logró con el siguiente script:
 
 \inputminted{mysql}{\scriptdir limpieza_datos.sql}
 
-Para completar las siguientes secciones del proyecto era necesario poder cargar los datos después de poner las claves primarias y foráneas, cosa que este método de carga y posterior limpieza no permitía. Por suerte, MySQL tiene una sentencia para exportar datos a csv. Aprovechándola, lo exportamos los datos de cada tabla ya filtrados a ficheros que poder cargar más adelante.
+Para completar las siguientes secciones del proyecto era necesario poder cargar los datos después de poner las claves primarias y foráneas, cosa que este método de carga y posterior limpieza no permitía. Por suerte, MySQL tiene una sentencia para exportar datos a csv. Aprovechándola, exportamos los datos de cada tabla ya filtrados a ficheros que poder cargar más adelante.
 
-Una nota importante sobre este proceso es que por motivos no muy claros, el primer id de cada tabla exportada se cambiaba por un cero. Como solo una fila se veía afectada como máximo, manualmente volvimos a establecer los ids erroneos a sus valores correctos.
+Una nota importante sobre este proceso es que por motivos no muy claros, el primer id de cada tabla exportada se cambiaba por un cero. Como solo una fila se veía afectada como máximo, restablecimos los ids erroneos a sus valores correctos manualmente.
 
 Tras todo esto, la carga de los datos podía volver a realizarse facilmente en cualquier momento cargando los ficheros de datos filtrados de la siguiente forma:
 
 \inputminted{mysql}{\scriptdir load_curated_data.sql}
 
-Cerca del final del proyecto, descubrimos una funcionalidad de MySQL Workbench que produce un backup exclusivamente de los datos de las tablas, sin guardar la estructura de la base de datos que importa de forma mucho más veloz que con el \emph{csv}.
+Cerca del final del proyecto descubrimos una funcionalidad de MySQL Workbench que produce un backup de los datos de las tablas sin guardar la estructura de la base de datos que importa de forma mucho más veloz que con el \emph{csv}.
 
 \subsection{Scripts de gestión de claves}
 
-Los scripts de gestión de claves son bastante sencillos, simplemente se alteran las tablas para establecer los campos especificados como claves primarias. Tras eso, se realiza lo mismo con claves foráneas:
+Los scripts de gestión de claves son bastante sencillos, simplemente se alteran las tablas para establecer los campos especificados como claves primarias o foráneas:
 
 \inputminted{mysql}{\scriptdir set_table_primary_keys.sql}
 
@@ -263,9 +263,9 @@ Para eliminarlas si fuese necesario:
 
 \subsection{?`Importa el orden de inserción de claves y datos?}
 
-Para resolver la duda de si es más rápido insertar los datos primero y luego añadir las claves, o al revés, realizamos la prueba de forma empírica, que concluyó con los siguientes resultados:
+Para resolver la duda de si es más rápido insertar los datos primero y luego añadir las claves o al revés, realizamos la prueba de forma empírica, que concluyó con los siguientes resultados:
 
-Creándo las claves e insertando después:
+Creándo las claves e insertando después: 2441.18 ms
 
 \begin{enumerate}
 	\item Creación de las claves primarias: 259.24 ms 
@@ -273,7 +273,7 @@ Creándo las claves e insertando después:
 	\item Inserción de los datos: 2003.8 ms
 \end{enumerate}
 
-Insertando primero y creando las claves después:
+Insertando primero y creando las claves después: 8551.96 ms
 
 \begin{enumerate}
 	\item Inserción de los datos: 1626.4 ms
@@ -281,9 +281,9 @@ Insertando primero y creando las claves después:
 	\item Creación de las claves foráneas: 268.76 ms
 \end{enumerate}
 
-Se puede observar que el proceso es muchísimo más lento si se crean las claves tras la inserción de los datos. Con la solución óptima se tarda ligeramente más (377.4 ms en nuestro caso) en cargar los datos que si no se hubiesen creado las claves primero, debido a que se tiene que ir comprobando las restricciones y actualizando los índices a medida que se va insertando. Pero, a cambio, la creación de las claves es muy veloz. Crear las claves una vez se han insertado los datos es un proceso muy costoso comparado con ir actualizando los índices a medida que se inserta.
+Se puede observar que el proceso es muchísimo más lento si se crean las claves tras la inserción de los datos.
 
-
+El paso de cargar los datos tarda ligeramente más si ya existian las claves previamente, debido a que se deben ir comprobando las restricciones y actualizando los índices. A cambio, la creación de las claves es muy veloz. Con el proceso invertido se tarda muchísimo más en total porque crear las claves sobre los datos ya insertados es un proceso increíblemente costoso de verificación de restricciones y creación de índices.
 	
 \newpage
 
@@ -295,17 +295,19 @@ Se puede observar que el proceso es muchísimo más lento si se crean las claves
 
 \subsection{Consultas más frecuentes}
 
-Lo primero que hicimos para optimizar las consultas más frecuentes es programarlas, para poder comparar más adelante las diferencias de velocidad:
+Lo primero que hicimos para optimizar las consultas más frecuentes es programarlas, de forma que más adelante pudiésemos comparar las diferencias de velocidad:
 
 \inputminted{mysql}{\scriptdir consultas/procedures.sql}
 
-Las consultas, ya que son las más frecuentes, fueron registradas como procedimientos para facilitar su llamada más adelante.
-
-\subsection{Optimización mediante índices}
+Al ser las consultas más frecuentes, las registramos como procedimientos para facilitar su llamada más adelante.
 
 Una vez programadas, nos pusimos a optimizar.
 
-Los tres índices aparte de los de las claves que impusimos son uno para los nombres, los apellidos y los títulos de los juegos, que por su aparición en las consultas parecían los que más optimización puede aportar. Los tiempos con distintos índices quedan representados en la siguiente tabla:
+\subsection{Optimización mediante índices}
+
+Los tres índices, aparte de los de las claves, que impusimos son para los nombres, los apellidos y los títulos de los juegos, que por su aparición en las consultas, parecían los que más optimización prometían.
+
+Las distintas combinaciones de índices produjeron los siguientes tiempos para las consultas más frecuentes:
 
 \begin{table}[H]
 \centering
@@ -322,7 +324,7 @@ X                      & X                     & X                     & \multic
 \end{tabular}
 \end{table}
 
-La especificación de los índices mencionada se realiza con este código:
+La especificación de los índices mencionados se realiza con este código:
 
 \inputminted{mysql}{\scriptdir consultas/setIndices.sql}
 
@@ -336,7 +338,7 @@ Las mejoras de todos ellos son lo suficientemente buenas como para permanecer en
 
 \section{Parte 3}
 
-\subsection{Cómo creamos la base de datos MySQL}
+\subsection{?`Cómo creamos la base de datos MySQL?}
 
 La base de datos con la que se ha estado tratando hasta este punto era una MySQL en un contenedor de Docker. Para la replicación de este proyecto se puede crear de la siguiente forma:
 
@@ -363,7 +365,7 @@ La contraseña está cambiada.
 
 \subsection{Acceso a MySQL desde phpMyAdmin}
 
-Para acceder a la base de datos MySQL con phpMyAdmin es necesario configurar las siguientes lineas en el fichero \mintinline{bash}{Applications/XAMPP/xamppfiles/phpmyadmin/config.inc.php} en OS X o \mintinline{bash}{C:/xampp/phpMyAdmin/config.inc.php} en Windows:
+Para acceder a la base de datos MySQL con phpMyAdmin es necesario configurar las siguientes lineas en el fichero "\mintinline{bash}{Applications/XAMPP/xamppfiles/phpmyadmin/config.inc.php}" en OS X o "\mintinline{bash}{C:/xampp/phpMyAdmin/config.inc.php}" en Windows:
 
 \begin{minted}{php}
 /* Authentication type */
@@ -374,7 +376,7 @@ $cfg['Servers'][$i]['password'] = 'contraseña';
 $cfg['Servers'][$i]['host'] = 'dirección_ip:puerto'
 \end{minted}
 
-El contenido de dichas lineas debe ser el que coincida con las credenciales de la base de datos a la que se desea acceder.
+El contenido de dichas lineas debe ser el de las credenciales de la base de datos a la que se desea acceder.
 
 
 
@@ -437,9 +439,9 @@ Aunque si hubo un problema: en MariaDB los índices de clave primaria posteriore
 
 Para configurar el tamaño de página de la base de datos es necesario rehacerla por lo que un backup sería no solo prudente si no necesario.
 
-En el fichero \mintinline{bash}{/etc/mysql/my.cnf} dentro del contendor de MariaDB, es necesario añadir la siguiente linea donde se encuentran las sentencias de \emph{innodb}: \mintinline{bash}{innodb_page_size = <tamaño_de_página>}. En nuestro caso \mintinline{bash}{tamaño_de_página} valdrá: \mintinline{bash}{4k, 16k y 64k}. El buffer ya venía preconfigurado con un tamaño razonable de 246 Mb.
+En el fichero "\mintinline{bash}{/etc/mysql/my.cnf}", dentro del contendor de MariaDB, es necesario añadir la siguiente linea donde se encuentran las sentencias de \emph{innodb}: \mintinline{bash}{innodb_page_size = <tamaño_de_página>}. En nuestro caso \mintinline{bash}{tamaño_de_página} valdrá: \mintinline{bash}{4k, 16k y 64k}. El buffer ya venía preconfigurado con un tamaño razonable de 246 Mb, pero si fuese necesario cambiarlo, se haría en la linea: \mintinline{bash}{innodb_buffer_pool_size = <tamaño_del_buffer>}.
 
-Una vez cambiados los parámetros de \emph{innodb} hay que eliminar la base de datos. Esto se hace borrando todo el contenido en \mintinline{bash}{/var/lib/mysql}.
+Una vez cambiados los parámetros de \emph{innodb} hay que eliminar la base de datos. Esto se hace borrando todo el contenido en "\mintinline{bash}{/var/lib/mysql}".
 
 Realizando las pruebas con los distintos tamaños de página quedan los siguientes resultados:
 
@@ -464,8 +466,8 @@ Al ser consultas que afectan a todas las filas de la tabla, cuanto mayor es la p
 
 \section{Conclusión}
 
-Durante esta práctica, no solo hemos aprendido sobre administración y gestión de bases de datos, si no que también hemos desarrollado habilidades de resolución de problemas externos, como la instalación de los servidores y clientes, que fueron un poco problemáticos.
+Durante esta práctica, no solo hemos aprendido sobre administración y gestión de bases de datos, si no que también hemos desarrollado habilidades de resolución de problemas externos, como la instalación de los servidores y clientes, que dio bastantes más problemas de los esperados.
 
-Lo más complicado ha sido la limpieza de los datos, ya que había muchos cambios que hacer y que sólo se iban detectando los errores a medida que se avanzaba y las consultas no funcionaban. Gracias a los conocimientos que adquirimos en la asignatura de bases de datos de segundo, pudimos ocuparnos de esta parte utilizando SQL desde de la base de datos.
+Lo más complicado fue la limpieza de los datos, debido a la inmensa cantidad de cambios sobre los datos iniciales necesarios y a que solo se iba detectando su necesidad a medida que surgían errores. Gracias a los conocimientos que adquirimos en la asignatura de bases de datos de segundo, pudimos ocuparnos de esta parte utilizando SQL desde de la base de datos, sin tener que utilizar herramientas externas como excel.
 
 \end{document}
