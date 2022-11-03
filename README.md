@@ -79,7 +79,7 @@ Para conectarse a un servidor MySQL que no sea el que viene con XAMPP (MariaDB) 
 /* Authentication type */
 $cfg['Servers'][$i]['auth_type] = 'config';
 $cfg['Servers'][$i]['user'] = 'root';
-$cfg['Servers'][$i]['password'] = 'keo';
+$cfg['Servers'][$i]['password'] = 'Keo';
 /* Server parameters */
 $cfg['Servers'][$i]['host'] = 'dirección_ip:puerto'
 ``` 
