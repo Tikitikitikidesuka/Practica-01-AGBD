@@ -54,6 +54,23 @@ docker run --name mariadb \
 
 **( ͡° ͜ʖ ͡°) La contraseña está obviamente cambiada ¯\\\_(ツ)\_/¯**
 
+--- 
+
+### XAMPP y phpMyAdmin
+
+Para conectarse a un servidor MySQL que no sea el que viene con XAMPP (MariaDB) con phpMyAdmin hay que configurar la conexión en el fichero `/Applications/XAMPP/xamppfiles/phpmyadmin/config.inc.php` en OS X y `C:\xampp\phpMyAdmin\config.inc.php` en Windows:
+
+```
+/* Authentication type */
+$cfg['Servers'][$i]['auth_type] = 'config';
+$cfg['Servers'][$i]['user'] = 'root';
+$cfg['Servers'][$i]['password'] = 'keo';
+/* Server parameters */
+$cfg['Servers'][$i]['host'] = 'dirección_ip:puerto'
+``` 
+
+**( ͡° ͜ʖ ͡°) La contraseña está obviamente cambiada ¯\\\_(ツ)\_/¯**
+
 ---
 
 ## Inserción de los datos
@@ -181,23 +198,6 @@ Este será el aspecto final de la ventana **Manage Server Connections** se ha re
     - [X] Indicar que conjunto de índices final es el más apropiado para la base de datos teniendo en cuenta que las consultas más frecuentes van a ser la 1, 4, 2 y la 3.
         Todos los índices activados producen la mejor velocidad teniendo solo en cuenta las consultas más frecuentes.
     - [X] Añadir unas conclusiones sobre el estudio de los índices.
-
---- 
-
-### XAMPP y phpMyAdmin
-
-Para conectarse a un servidor MySQL que no sea el que viene con XAMPP (MariaDB) con phpMyAdmin hay que configurar la conexión en el fichero `/Applications/XAMPP/xamppfiles/phpmyadmin/config.inc.php` en OS X y `C:\xampp\phpMyAdmin\config.inc.php` en Windows:
-
-```
-/* Authentication type */
-$cfg['Servers'][$i]['auth_type] = 'config';
-$cfg['Servers'][$i]['user'] = 'root';
-$cfg['Servers'][$i]['password'] = 'keo';
-/* Server parameters */
-$cfg['Servers'][$i]['host'] = 'dirección_ip:puerto'
-``` 
-
-**( ͡° ͜ʖ ͡°) La contraseña está obviamente cambiada ¯\\\_(ツ)\_/¯**
 
 ---
 
