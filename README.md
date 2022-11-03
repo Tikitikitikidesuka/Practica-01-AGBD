@@ -27,7 +27,7 @@ En nuestro caso en particular se ejecuta:
 docker run --name mysql \
     -p 3306:3306 \
     -e MYSQL_ROOT_PASSWORD=Keo \
-    -d mysql:8.0.22
+    -d mysql:8.0.31
 ```
 
 **( ͡° ͜ʖ ͡°) La contraseña está obviamente cambiada ¯\\\_(ツ)\_/¯**
