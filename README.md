@@ -34,7 +34,7 @@ docker run --name mysql \
 
 Si se necesita instalar vim (o algún otro programa) en el contenedor, desde su terminal insertar:
 
-```
+```sh
 apt update
 apt upgrade
 apt install vim
@@ -64,10 +64,19 @@ docker run --name mariadb \
 
 Si se necesita instalar vim (o algún otro programa) en el contenedor, desde su terminal insertar:
 
-```
+```sh
 microdnf update
 microdnf install -y vim
 ```
+
+Para establecer los tamaños de página y de buffer del servidor, configurar las siguientes líneas del fichero `/etc/mysql/my.cnf` desde el terminal del contenedor:
+
+```
+innodb_page_size = <tamaño_de_página>
+innodb_buffer_pool_size = <tamaño_del_buffer>
+```
+
+Tras esto, eliminar el contenido del directorio `/var/lib/mysql`.
 
 --- 
 
