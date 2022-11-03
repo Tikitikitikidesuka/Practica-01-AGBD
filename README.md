@@ -76,7 +76,11 @@ innodb_page_size = <tamaño_de_página>
 innodb_buffer_pool_size = <tamaño_del_buffer>
 ```
 
-Tras esto, eliminar el contenido del directorio `/var/lib/mysql`.
+Tras esto, eliminar el contenido del directorio `/var/lib/mysql`:
+
+```sh
+rm -rf /var/lib/mysql/*
+```
 
 --- 
 
