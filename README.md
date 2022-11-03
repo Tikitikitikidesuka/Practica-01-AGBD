@@ -15,19 +15,19 @@ pdflatex --shell-escape memoria/main.tex
 Con **Docker** instalado, ejecutar:
 
 ```sh
-docker run --name <NOMBRE_DEL_CONTENDOR>\
-    -p <PUERTO_REAL>:<PUERTO_VIRTUAL>\
-    -e MYSQL_ROOT_PASSWORD=<CONTRASEÑA_DEL_USUARIO_ROOT>\
+docker run --name <NOMBRE_DEL_CONTENDOR> \
+    -p <PUERTO_REAL>:<PUERTO_VIRTUAL> \
+    -e MYSQL_ROOT_PASSWORD=<CONTRASEÑA_DEL_USUARIO_ROOT> \
     -d mysql:<VERSION_DE_MYSQL>
 ```
 
 En nuestro caso en particular se ejecuta:
 
 ```sh
-docker run --name mysql\
-    -p 3306:3306\
-    -e MYSQL_ROOT_PASSWORD=Keo\
-    -d mysql:latest
+docker run --name mysql \
+    -p 3306:3306 \
+    -e MYSQL_ROOT_PASSWORD=Keo \
+    -d mysql:8.0.22
 ```
 
 **( ͡° ͜ʖ ͡°) La contraseña está obviamente cambiada ¯\\\_(ツ)\_/¯**
@@ -37,18 +37,18 @@ docker run --name mysql\
 Con **Docker** instalado, ejecutar:
 
 ```sh
-docker run --name <NOMBRE_DEL_CONTENDOR>\
-    -p <PUERTO_REAL>:<PUERTO_VIRTUAL>\
-    -e MYSQL_ROOT_PASSWORD=<CONTRASEÑA_DEL_USUARIO_ROOT>\
+docker run --name <NOMBRE_DEL_CONTENDOR> \
+    -p <PUERTO_REAL>:<PUERTO_VIRTUAL> \
+    -e MYSQL_ROOT_PASSWORD=<CONTRASEÑA_DEL_USUARIO_ROOT> \
     -d mariadb:<VERSION_DE_MARIADB>
 ```
 
 En nuestro caso en particular se ejecuta:
 
 ```sh
-docker run --name mariadb\
-    -p 3309:3306\
-    -e MYSQL_ROOT_PASSWORD=Keo\
+docker run --name mariadb \
+    -p 3309:3306 \
+    -e MYSQL_ROOT_PASSWORD=Keo \
     -d mariadb:10.4
 ```
 
