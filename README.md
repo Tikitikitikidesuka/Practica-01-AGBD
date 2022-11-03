@@ -32,6 +32,14 @@ docker run --name mysql \
 
 **( ͡° ͜ʖ ͡°) La contraseña está obviamente cambiada ¯\\\_(ツ)\_/¯**
 
+Si se necesita instalar vim (o algún otro programa) en el contenedor, desde su terminal insertar:
+
+```
+apt update
+apt upgrade
+apt install vim
+```
+
 ## Creación del servidor MariaDB
 
 Con **Docker** instalado, ejecutar:
@@ -53,6 +61,13 @@ docker run --name mariadb \
 ```
 
 **( ͡° ͜ʖ ͡°) La contraseña está obviamente cambiada ¯\\\_(ツ)\_/¯**
+
+Si se necesita instalar vim (o algún otro programa) en el contenedor, desde su terminal insertar:
+
+```
+microdnf update
+microdnf install -y vim
+```
 
 --- 
 
