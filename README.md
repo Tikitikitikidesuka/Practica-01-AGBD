@@ -1,4 +1,4 @@
-# Practica 01 AGDB
+# Practica 01 AGBD
 
 Repositorio de la primera práctica de la asignatura de administración y gestión de bases de datos.
 
